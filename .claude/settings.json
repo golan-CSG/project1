@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "grep -o '\"command\":\"[^\"]*\"' | grep -q 'git commit' && (cd /c/Users/GolanMadar/Desktop/bikeshook && git push) || true",
+            "shell": "bash",
+            "statusMessage": "Pushing to GitHub..."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -49,3 +49,4 @@ prisma/*.db-journal
 # uploaded images
 /public/uploads/*
 !/public/uploads/.gitkeep
+.claude/settings.local.json
