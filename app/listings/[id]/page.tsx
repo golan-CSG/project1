@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Mail, MessageCircle, Trash2, Pencil, ChevronLeft, ChevronRight, Star, Tag } from "lucide-react";
 
 const CATEGORIES: Record<string, string> = {
-  wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע",
+  wheels: "גלגלים", bike: "אופניים שלמים", brakes: "בלמים", drivetrain: "הינע",
   handlebars: "כידון", saddle: "אוכף", frame: "שלדה",
   forks: "סטם", fork: "מזלג", pedals: "פדלים", tires: "צמיגים", other: "אחר",
 };

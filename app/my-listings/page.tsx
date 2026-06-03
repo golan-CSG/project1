@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Star, Plus, Pencil, Trash2, TrendingUp, Package, Wallet } from "lucide-react";
 
 const CATEGORIES: Record<string, string> = {
-  wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע",
+  wheels: "גלגלים", bike: "אופניים שלמים", brakes: "בלמים", drivetrain: "הינע",
   handlebars: "כידון", saddle: "אוכף", frame: "שלדה",
   forks: "סטם", fork: "מזלג", pedals: "פדלים", tires: "צמיגים", other: "אחר",
 };

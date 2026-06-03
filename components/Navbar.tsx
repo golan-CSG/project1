@@ -56,7 +56,7 @@ export default function Navbar() {
             <>
               <Link href="/sell"
                 className="flex items-center gap-1 bg-white text-green-600 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-green-50">
-                <Plus size={15} /> פרסם
+                <Plus size={15} /> רוצה למכור
               </Link>
             </>
           ) : (

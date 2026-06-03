@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import ImageUploader from "@/components/ImageUploader";
 
 const CATEGORIES = [
+  { value: "bike", label: "אופניים שלמים" },
   { value: "wheels", label: "גלגלים" },
   { value: "brakes", label: "בלמים" },
   { value: "drivetrain", label: "הינע" },
