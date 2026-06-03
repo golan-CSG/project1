@@ -47,9 +47,9 @@ export default function Navbar() {
 
         {/* Nav links + actions on the right */}
         <div className="flex items-center gap-3">
-          <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">🛒 כיכר השוק</Link>
-          <Link href="/search" className="hover:text-green-100 text-sm hidden sm:block">🔍 חיפוש מתקדם</Link>
-          <Link href="/wanted" className="hover:text-green-100 text-sm hidden sm:block">🕯️ מחפש בנרות</Link>
+          {user && <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">🛒 כיכר השוק</Link>}
+          {user && <Link href="/search" className="hover:text-green-100 text-sm hidden sm:block">🔍 חיפוש מתקדם</Link>}
+          {user && <Link href="/wanted" className="hover:text-green-100 text-sm hidden sm:block">🕯️ מחפש בנרות</Link>}
           {user && <Link href="/favorites" className="hover:text-green-100 text-sm hidden sm:block">⭐ מועדפים</Link>}
           {user && <Link href="/my-listings" className="hover:text-green-100 text-sm hidden sm:block">📦 המודעות שלי</Link>}
 
@@ -62,10 +62,7 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link href="/login" className="hover:text-green-100 text-sm">התחברות</Link>
-              <Link href="/register" className="bg-white text-green-600 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-green-50">
-                הרשמה
-              </Link>
+              <Link href="/login" className="hover:text-green-100 text-sm">התחברות / הרשמה</Link>
             </>
           )}
         </div>

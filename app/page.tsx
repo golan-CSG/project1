@@ -40,8 +40,14 @@ export default function Home() {
   const [category, setCategory] = useState("all");
   const [maxPrice, setMaxPrice] = useState("");
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<{ id: string } | null | undefined>(undefined);
 
   useEffect(() => {
+    fetch("/api/me").then((r) => r.json()).then(setUser);
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
     const params = new URLSearchParams();
     if (search) params.set("search", search);
     if (category !== "all") params.set("category", category);
@@ -52,7 +58,10 @@ export default function Home() {
       setListings(data);
       setLoading(false);
     });
-  }, [search, category, maxPrice]);
+  }, [search, category, maxPrice, user]);
+
+  if (user === undefined) return null;
+  if (!user) return null;
 
   return (
     <div>
