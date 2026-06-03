@@ -10,6 +10,8 @@ export async function GET(req: NextRequest) {
   const maxPrice = searchParams.get("maxPrice");
   const userId = searchParams.get("userId");
 
+  const withFavorites = searchParams.get("withFavorites") === "true";
+
   const listings = await prisma.listing.findMany({
     where: {
       ...(userId ? { userId } : {}),
@@ -24,7 +26,10 @@ export async function GET(req: NextRequest) {
       ...(minPrice ? { price: { gte: parseFloat(minPrice) } } : {}),
       ...(maxPrice ? { price: { lte: parseFloat(maxPrice) } } : {}),
     },
-    include: { user: { select: { name: true, email: true, whatsapp: true } } },
+    include: {
+      user: { select: { name: true, email: true, whatsapp: true } },
+      ...(withFavorites ? { _count: { select: { favorites: true } } } : {}),
+    },
     orderBy: { createdAt: "desc" },
   });
 

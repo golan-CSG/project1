@@ -32,7 +32,7 @@ export default function Navbar() {
         {/* Username + logout next to logo */}
         {user && (
           <div className="flex items-center gap-2">
-            <Link href="/my-listings" className="flex items-center gap-1 text-green-100 hover:text-white text-sm">
+            <Link href="/profile" className="flex items-center gap-1 text-green-100 hover:text-white text-sm">
               <User size={14} />
               <span>{user.name}</span>
             </Link>
@@ -50,6 +50,7 @@ export default function Navbar() {
           <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">🛒 כיכר השוק</Link>
           <Link href="/wanted" className="hover:text-green-100 text-sm hidden sm:block">🕯️ מחפש בנרות</Link>
           {user && <Link href="/favorites" className="hover:text-green-100 text-sm hidden sm:block">⭐ מועדפים</Link>}
+          {user && <Link href="/my-listings" className="hover:text-green-100 text-sm hidden sm:block">📦 המודעות שלי</Link>}
 
           {user ? (
             <>
