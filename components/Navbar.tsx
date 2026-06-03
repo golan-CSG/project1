@@ -47,12 +47,12 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {user && <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">🛒 כיכר השוק</Link>}
           {user && <Link href="/search" className="hover:text-green-100 text-sm hidden sm:block">🔍 חיפוש מתקדם</Link>}
-          {user && <Link href="/wanted" className="hover:text-green-100 text-sm hidden sm:block">🕯️ מחפש בנרות</Link>}
           {user && <Link href="/favorites" className="hover:text-green-100 text-sm hidden sm:block">⭐ מועדפים</Link>}
           {user && <Link href="/my-listings" className="hover:text-green-100 text-sm hidden sm:block">📦 המודעות שלי</Link>}
 
           {user ? (
             <>
+              <Link href="/wanted" className="hover:text-green-100 text-sm hidden sm:block">🕯️ מחפש בנרות</Link>
               <Link href="/sell"
                 className="flex items-center gap-1 bg-white text-green-600 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-green-50">
                 <Plus size={15} /> רוצה למכור
