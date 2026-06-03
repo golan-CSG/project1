@@ -7,7 +7,7 @@ const CATEGORIES = [
   { value: "all", label: "הכל" },
   { value: "wheels", label: "גלגלים" },
   { value: "brakes", label: "בלמים" },
-  { value: "drivetrain", label: "הנעה" },
+  { value: "drivetrain", label: "הינע" },
   { value: "handlebars", label: "כידון" },
   { value: "saddle", label: "אוכף" },
   { value: "frame", label: "שלדה" },
@@ -26,6 +26,7 @@ interface Listing {
   brand?: string;
   location?: string;
   imageUrl?: string;
+  sold: boolean;
   createdAt: string;
   user: { name: string };
 }
@@ -107,12 +108,19 @@ export default function Home() {
           {listings.map((listing) => (
             <Link key={listing.id} href={`/listings/${listing.id}`}>
               <div className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
-                {listing.imageUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={listing.imageUrl} alt={listing.title} className="w-full h-44 object-cover" />
-                ) : (
-                  <div className="w-full h-44 bg-slate-100 flex items-center justify-center text-5xl">🚲</div>
-                )}
+                <div className="relative">
+                  {listing.imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={listing.imageUrl} alt={listing.title} className="w-full h-44 object-cover" />
+                  ) : (
+                    <div className="w-full h-44 bg-slate-100 flex items-center justify-center text-5xl">🚲</div>
+                  )}
+                  {listing.sold && (
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                      <span className="bg-red-500 text-white text-sm font-bold px-4 py-1.5 rounded-full rotate-[-15deg] shadow-lg">נמכר ✓</span>
+                    </div>
+                  )}
+                </div>
                 <div className="p-3 text-right">
                   <p className="font-semibold text-slate-800 truncate">{listing.title}</p>
                   <p className="text-green-600 font-bold text-lg">₪{listing.price}</p>

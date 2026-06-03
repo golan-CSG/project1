@@ -57,6 +57,7 @@ model Listing {
   images      String?
   phone       String?
   email       String?
+  sold        Boolean    @default(false)
   createdAt   DateTime   @default(now())
   userId      String
   user        User       @relation(fields: [userId], references: [id])

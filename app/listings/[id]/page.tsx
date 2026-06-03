@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Mail, MessageCircle, Trash2, Pencil, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ArrowRight, Mail, MessageCircle, Trash2, Pencil, ChevronLeft, ChevronRight, Star, Tag } from "lucide-react";
 
 const CATEGORIES: Record<string, string> = {
-  wheels: "גלגלים", brakes: "בלמים", drivetrain: "הנעה",
+  wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע",
   handlebars: "כידון", saddle: "אוכף", frame: "שלדה",
   forks: "סטם ושלוחות", pedals: "פדלים", tires: "צמיגים", other: "אחר",
 };
@@ -27,6 +27,7 @@ interface Listing {
   images?: string;
   phone?: string;
   email?: string;
+  sold?: boolean;
   userId?: string;
   createdAt: string;
   user: { name: string; email: string; whatsapp?: string };
@@ -40,6 +41,7 @@ export default function ListingPage() {
   const [loading, setLoading] = useState(true);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [favorited, setFavorited] = useState(false);
+  const [sold, setSold] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -50,9 +52,16 @@ export default function ListingPage() {
       setListing(listingData);
       setMe(meData);
       setFavorited(favData.favorited);
+      setSold(listingData.sold || false);
       setLoading(false);
     });
   }, [id]);
+
+  async function toggleSold() {
+    const res = await fetch(`/api/listings/${id}/sold`, { method: "POST" });
+    const data = await res.json();
+    if (res.ok) setSold(data.sold);
+  }
 
   async function toggleFavorite() {
     const res = await fetch("/api/favorites", {
@@ -89,6 +98,13 @@ export default function ListingPage() {
       </Link>
 
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+
+        {/* Sold banner */}
+        {sold && (
+          <div className="bg-red-500 text-white text-center py-2 font-bold text-sm">
+            🏷️ מודעה זו סומנה כנמכרה
+          </div>
+        )}
 
         {/* Image gallery */}
         {photos.length > 0 ? (
@@ -213,6 +229,15 @@ export default function ListingPage() {
               )}
               {isOwner && (
                 <>
+                  <button onClick={toggleSold}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
+                      sold
+                        ? "bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
+                        : "bg-red-50 text-red-600 border-red-200 hover:bg-red-100"
+                    }`}>
+                    <Tag size={16} />
+                    {sold ? "בטל נמכר" : "סמן כנמכר"}
+                  </button>
                   <Link href={`/listings/${listing.id}/edit`}
                     className="flex items-center gap-2 bg-blue-50 text-blue-600 border border-blue-200 px-4 py-2.5 rounded-lg hover:bg-blue-100 text-sm font-medium">
                     <Pencil size={16} /> ערוך מודעה

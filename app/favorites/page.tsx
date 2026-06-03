@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Star } from "lucide-react";
 
 const CATEGORIES: Record<string, string> = {
-  wheels: "גלגלים", brakes: "בלמים", drivetrain: "הנעה",
+  wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע",
   handlebars: "כידון", saddle: "אוכף", frame: "שלדה",
   forks: "סטם ושלוחות", pedals: "פדלים", tires: "צמיגים", other: "אחר",
 };

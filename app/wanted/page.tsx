@@ -7,7 +7,7 @@ const CATEGORIES = [
   { value: "all", label: "הכל" },
   { value: "wheels", label: "גלגלים" },
   { value: "brakes", label: "בלמים" },
-  { value: "drivetrain", label: "הנעה" },
+  { value: "drivetrain", label: "הינע" },
   { value: "handlebars", label: "כידון" },
   { value: "saddle", label: "אוכף" },
   { value: "frame", label: "שלדה" },

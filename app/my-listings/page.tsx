@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Star, Plus, Pencil, Trash2, TrendingUp, Package, Wallet } from "lucide-react";
 
 const CATEGORIES: Record<string, string> = {
-  wheels: "גלגלים", brakes: "בלמים", drivetrain: "הנעה",
+  wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע",
   handlebars: "כידון", saddle: "אוכף", frame: "שלדה",
   forks: "סטם ושלוחות", pedals: "פדלים", tires: "צמיגים", other: "אחר",
 };
@@ -23,6 +23,7 @@ interface Listing {
   location: string;
   imageUrl?: string;
   images?: string;
+  sold: boolean;
   createdAt: string;
   _count?: { favorites: number };
 }
@@ -104,12 +105,17 @@ export default function MyListingsPage() {
               <div key={listing.id} className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-sm transition-shadow">
                 <div className="flex items-center gap-4 p-4">
                   {/* Image */}
-                  <Link href={`/listings/${listing.id}`} className="flex-shrink-0">
+                  <Link href={`/listings/${listing.id}`} className="flex-shrink-0 relative">
                     {firstImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={firstImage} alt={listing.title} className="w-20 h-20 object-cover rounded-lg" />
                     ) : (
                       <div className="w-20 h-20 bg-slate-100 rounded-lg flex items-center justify-center text-3xl">🚲</div>
+                    )}
+                    {listing.sold && (
+                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">נמכר</span>
+                      </div>
                     )}
                   </Link>
 

@@ -6,7 +6,7 @@ import ImageUploader from "@/components/ImageUploader";
 const CATEGORIES = [
   { value: "wheels", label: "גלגלים" },
   { value: "brakes", label: "בלמים" },
-  { value: "drivetrain", label: "הנעה" },
+  { value: "drivetrain", label: "הינע" },
   { value: "handlebars", label: "כידון" },
   { value: "saddle", label: "אוכף" },
   { value: "frame", label: "שלדה" },
