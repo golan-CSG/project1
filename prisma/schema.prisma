@@ -13,7 +13,22 @@ model User {
   name      String
   whatsapp  String?
   createdAt DateTime @default(now())
-  listings  Listing[]
+  listings     Listing[]
+  wantedPosts  WantedPost[]
+}
+
+model WantedPost {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String
+  maxPrice    Float?
+  location    String?
+  phone       String?
+  email       String?
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
 }
 
 model Listing {

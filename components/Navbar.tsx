@@ -30,6 +30,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3">
           <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">עיון</Link>
+          <Link href="/wanted" className="hover:text-green-100 text-sm hidden sm:block">🕯️ מחפש בנרות</Link>
 
           {user ? (
             <>
