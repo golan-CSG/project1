@@ -1,19 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Saddle top - wider and more realistic bike seat shape -->
-  <path d="M20 38 Q25 28 50 26 Q75 28 80 38 Q72 48 50 50 Q28 48 20 38Z" fill="#1e293b"/>
-  <!-- Saddle nose -->
-  <path d="M46 50 Q50 52 54 50 L58 65 Q50 68 42 65Z" fill="#1e293b"/>
-  <!-- Saddle highlight/texture -->
-  <path d="M28 36 Q40 30 62 30 Q72 32 76 38 Q66 42 50 43 Q34 42 28 36Z" fill="#374151"/>
-  <!-- Center seam -->
-  <line x1="50" y1="27" x2="50" y2="65" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <!-- Rails -->
-  <line x1="35" y1="50" x2="28" y2="82" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
-  <line x1="65" y1="50" x2="72" y2="82" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
-  <!-- Rail crossbar -->
-  <line x1="28" y1="82" x2="72" y2="82" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
-  <!-- Seatpost clamp -->
-  <rect x="44" y="78" width="12" height="8" rx="3" fill="#475569"/>
+  <!-- Saddle shell - classic road bike saddle shape -->
+  <path d="M12 42 Q18 30 50 28 Q82 30 88 42 Q80 52 50 54 Q20 52 12 42Z" fill="#1e293b"/>
+  <!-- Nose of saddle -->
+  <path d="M44 53 Q50 56 56 53 L52 68 Q50 70 48 68Z" fill="#1e293b"/>
+  <!-- Top surface highlight -->
+  <path d="M22 40 Q36 32 64 32 Q76 34 82 40 Q70 46 50 47 Q30 46 22 40Z" fill="#334155"/>
+  <!-- Padding texture lines -->
+  <line x1="35" y1="34" x2="32" y2="48" stroke="#1e293b" stroke-width="1" stroke-linecap="round"/>
+  <line x1="50" y1="30" x2="50" y2="68" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <line x1="65" y1="34" x2="68" y2="48" stroke="#1e293b" stroke-width="1" stroke-linecap="round"/>
+  <!-- Rails (titanium style) -->
+  <path d="M30 54 Q25 64 24 82" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M70 54 Q75 64 76 82" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Rail bottom crossbar -->
+  <line x1="24" y1="82" x2="76" y2="82" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Seatpost top clamp -->
+  <rect x="43" y="79" width="14" height="7" rx="3" fill="#64748b"/>
   <!-- Seatpost -->
-  <rect x="46" y="82" width="8" height="14" rx="4" fill="#374151"/>
+  <rect x="46" y="83" width="8" height="13" rx="4" fill="#475569"/>
+  <!-- Brand logo area -->
+  <ellipse cx="50" cy="42" rx="12" ry="4" fill="#1e3a8a" opacity="0.5"/>
 </svg>
