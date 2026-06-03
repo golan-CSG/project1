@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Road bike - thin tires, aggressive geometry -->
+  <!-- Rear wheel (thin) -->
+  <circle cx="22" cy="65" r="18" fill="none" stroke="#374151" stroke-width="3"/>
+  <circle cx="22" cy="65" r="4" fill="#1e293b"/>
+  <line x1="22" y1="47" x2="22" y2="61" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="22" y1="69" x2="22" y2="83" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="4" y1="65" x2="18" y2="65" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="26" y1="65" x2="40" y2="65" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="9" y1="52" x2="19" y2="62" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="25" y1="68" x2="35" y2="78" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="35" y1="52" x2="25" y2="62" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="19" y1="68" x2="9" y2="78" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Front wheel (thin) -->
+  <circle cx="78" cy="65" r="18" fill="none" stroke="#374151" stroke-width="3"/>
+  <circle cx="78" cy="65" r="4" fill="#1e293b"/>
+  <line x1="78" y1="47" x2="78" y2="61" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="78" y1="69" x2="78" y2="83" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="60" y1="65" x2="74" y2="65" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="82" y1="65" x2="96" y2="65" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="65" y1="52" x2="75" y2="62" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="81" y1="68" x2="91" y2="78" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="91" y1="52" x2="81" y2="62" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="75" y1="68" x2="65" y2="78" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Road bike frame - aggressive/steep geometry -->
+  <line x1="36" y1="42" x2="63" y2="44" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="36" y1="42" x2="62" y2="65" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="60" y1="42" x2="62" y2="65" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="62" y1="65" x2="22" y2="65" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="60" y1="42" x2="22" y2="65" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/>
+  <!-- Thin road fork -->
+  <line x1="36" y1="42" x2="78" y2="65" stroke="#64748b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <rect x="32" y="35" width="6" height="12" rx="3" fill="#1e293b"/>
+  <circle cx="62" cy="65" r="5" fill="#1e293b"/>
+
+  <!-- Drop handlebar (road bike style) -->
+  <path d="M26 33 Q34 30 36 33 Q38 38 34 40" stroke="#374151" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <line x1="34" y1="33" x2="34" y2="38" stroke="#374151" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Saddle (aggressive/forward position) -->
+  <path d="M52 33 Q58 30 65 31" stroke="#374151" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <line x1="59" y1="31" x2="59" y2="42" stroke="#374151" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

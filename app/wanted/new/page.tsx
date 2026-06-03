@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const CATEGORIES = [
-  { value: "bike", label: "אופניים שלמים" },
+  { value: "bike", label: "אופני הרים" },
   { value: "wheels", label: "גלגלים" },
   { value: "brakes", label: "בלמים" },
   { value: "drivetrain", label: "הינע" },
@@ -14,6 +14,7 @@ const CATEGORIES = [
   { value: "pedals", label: "פדלים" },
   { value: "tires", label: "צמיגים" },
   { value: "fork", label: "מזלג" },
+  { value: "roadbike", label: "אופני כביש" },
   { value: "other", label: "אחר" },
 ];
 

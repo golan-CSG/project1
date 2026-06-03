@@ -15,7 +15,8 @@ const CATEGORIES = [
   { value: "fork", label: "מזלג", img: "/categories/fork.svg" },
   { value: "pedals", label: "פדלים", img: "/categories/pedals.svg" },
   { value: "tires", label: "צמיגים", img: "/categories/tires.svg" },
-  { value: "bike", label: "אופניים שלמים", img: "/categories/bike.svg" },
+  { value: "bike", label: "אופני הרים", img: "/categories/bike.svg" },
+  { value: "roadbike", label: "אופני כביש", img: "/categories/roadbike.svg" },
   { value: "other", label: "אחר", img: "/categories/other.svg" },
 ];
 

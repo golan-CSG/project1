@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import ImageUploader from "@/components/ImageUploader";
 
 const CATEGORIES = [
-  { value: "bike", label: "אופניים שלמים" },
   { value: "wheels", label: "גלגלים" },
   { value: "brakes", label: "בלמים" },
   { value: "drivetrain", label: "הינע" },
@@ -12,9 +11,11 @@ const CATEGORIES = [
   { value: "saddle", label: "אוכף" },
   { value: "frame", label: "שלדה" },
   { value: "forks", label: "סטם" },
+  { value: "fork", label: "מזלג" },
   { value: "pedals", label: "פדלים" },
   { value: "tires", label: "צמיגים" },
-  { value: "fork", label: "מזלג" },
+  { value: "roadbike", label: "אופני כביש" },
+  { value: "bike", label: "אופני הרים" },
   { value: "other", label: "אחר" },
 ];
 
