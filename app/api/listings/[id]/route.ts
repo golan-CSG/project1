@@ -22,7 +22,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const { title, description, price, category, brand, condition, location, phone, images } = await req.json();
+  const { title, description, price, category, brand, condition, location, phone, email, images } = await req.json();
 
   const imagesJson = JSON.stringify(images || []);
   const imageUrl = images?.[0] || null;
@@ -33,7 +33,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       data: {
         title, description,
         price: parseFloat(price),
-        category, brand, condition, location, phone,
+        category, brand, condition, location, phone, email,
         imageUrl,
         images: imagesJson,
       },

@@ -26,7 +26,7 @@ const CONDITIONS = [
 export default function SellPage() {
   const [form, setForm] = useState({
     title: "", description: "", price: "", category: "wheels",
-    brand: "", condition: "good", location: "", phone: "",
+    brand: "", condition: "good", location: "", phone: "", email: "",
   });
   const [images, setImages] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -125,6 +125,13 @@ export default function SellPage() {
                 value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })}
                 className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">אימייל ליצירת קשר <span className="text-slate-400">(אופציונלי)</span></label>
+            <input type="email" placeholder="example@email.com"
+              value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
           </div>
 
           {error && <p className="text-red-500 text-sm text-right">{error}</p>}

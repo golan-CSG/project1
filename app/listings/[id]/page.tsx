@@ -26,6 +26,7 @@ interface Listing {
   imageUrl?: string;
   images?: string;
   phone?: string;
+  email?: string;
   userId?: string;
   createdAt: string;
   user: { name: string; email: string; whatsapp?: string };
@@ -135,8 +136,57 @@ export default function ListingPage() {
           {listing.location && <p className="text-slate-500 text-sm mb-6">📍 {listing.location}</p>}
 
           <div className="border-t border-slate-100 pt-5">
-            <p className="text-sm font-semibold text-slate-700 mb-3">מוכר: {listing.user.name}</p>
+            <p className="text-sm font-semibold text-slate-700 mb-4">פרטי המוכר</p>
+
+            {/* Contact details */}
+            <div className="bg-slate-50 rounded-xl p-4 mb-4 space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-500">שם</span>
+                <span className="font-medium text-slate-800">{listing.user.name}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">טלפון נייד</span>
+                {listing.phone
+                  ? <a href={`https://wa.me/${listing.phone.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="font-medium text-green-600 hover:underline">📱 {listing.phone}</a>
+                  : <span className="text-slate-400">לא צוין</span>
+                }
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">אימייל</span>
+                <a href={`mailto:${listing.email || listing.user.email}`} className="font-medium text-green-600 hover:underline">
+                  {listing.email || listing.user.email}
+                </a>
+              </div>
+              {listing.user.whatsapp && (
+                <div className="flex justify-between">
+                  <span className="text-slate-500">וואטסאפ</span>
+                  <a href={`https://wa.me/${listing.user.whatsapp.replace(/\D/g, "")}`}
+                    target="_blank" rel="noopener noreferrer"
+                    className="font-medium text-green-600 hover:underline">{listing.user.whatsapp}</a>
+                </div>
+              )}
+            </div>
+
+            {/* Action buttons */}
             <div className="flex gap-3 flex-wrap">
+              {listing.phone && (
+                <a href={`https://wa.me/${listing.phone.replace(/\D/g, "")}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-green-500 text-white px-4 py-2.5 rounded-lg hover:bg-green-600 text-sm font-medium">
+                  <MessageCircle size={16} /> וואטסאפ ({listing.phone})
+                </a>
+              )}
+              <a href={`mailto:${listing.email || listing.user.email}`}
+                className="flex items-center gap-2 bg-slate-800 text-white px-4 py-2.5 rounded-lg hover:bg-slate-700 text-sm font-medium">
+                <Mail size={16} /> שלח אימייל
+              </a>
+              {listing.user.whatsapp && (
+                <a href={`https://wa.me/${listing.user.whatsapp.replace(/\D/g, "")}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-green-500 text-white px-4 py-2.5 rounded-lg hover:bg-green-600 text-sm font-medium">
+                  <MessageCircle size={16} /> וואטסאפ
+                </a>
+              )}
               {isOwner && (
                 <>
                   <Link href={`/listings/${listing.id}/edit`}
@@ -148,23 +198,6 @@ export default function ListingPage() {
                     <Trash2 size={16} /> מחק מודעה
                   </button>
                 </>
-              )}
-              {listing.phone && (
-                <a href={`tel:${listing.phone}`}
-                  className="flex items-center gap-2 bg-slate-100 text-slate-700 border border-slate-200 px-4 py-2.5 rounded-lg hover:bg-slate-200 text-sm font-medium">
-                  📱 {listing.phone}
-                </a>
-              )}
-              <a href={`mailto:${listing.user.email}`}
-                className="flex items-center gap-2 bg-slate-800 text-white px-4 py-2.5 rounded-lg hover:bg-slate-700 text-sm font-medium">
-                <Mail size={16} /> שלח אימייל
-              </a>
-              {listing.user.whatsapp && (
-                <a href={`https://wa.me/${listing.user.whatsapp.replace(/\D/g, "")}`}
-                  target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-green-500 text-white px-4 py-2.5 rounded-lg hover:bg-green-600 text-sm font-medium">
-                  <MessageCircle size={16} /> וואטסאפ
-                </a>
               )}
             </div>
           </div>
