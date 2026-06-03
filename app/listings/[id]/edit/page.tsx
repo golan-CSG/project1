@@ -149,8 +149,8 @@ export default function EditListingPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">מיקום</label>
-              <input type="text" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })}
+              <label className="block text-sm font-medium text-slate-700 mb-1">מיקום *</label>
+              <input type="text" required value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })}
                 className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
             </div>
             <div>
