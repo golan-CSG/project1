@@ -7,14 +7,26 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  name      String
-  whatsapp  String?
-  createdAt DateTime @default(now())
+  id           String       @id @default(cuid())
+  email        String       @unique
+  password     String
+  name         String
+  whatsapp     String?
+  createdAt    DateTime     @default(now())
   listings     Listing[]
   wantedPosts  WantedPost[]
+  favorites    Favorite[]
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  listingId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, listingId])
 }
 
 model WantedPost {
@@ -32,7 +44,7 @@ model WantedPost {
 }
 
 model Listing {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
   description String
   price       Float
@@ -44,7 +56,8 @@ model Listing {
   images      String?
   phone       String?
   email       String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime   @default(now())
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
+  favorites   Favorite[]
 }

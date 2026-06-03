@@ -22,38 +22,41 @@ export default function Navbar() {
 
   return (
     <nav className="bg-green-600 text-white shadow-md">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between" dir="rtl">
+      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4" dir="ltr">
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-xl font-bold hover:text-green-100">
           <Bike size={28} />
           Bikeshook
         </Link>
 
+        {/* Username + logout next to logo */}
+        {user && (
+          <div className="flex items-center gap-2">
+            <Link href="/my-listings" className="flex items-center gap-1 text-green-100 hover:text-white text-sm">
+              <User size={14} />
+              <span>{user.name}</span>
+            </Link>
+            <button onClick={logout} className="hover:text-white text-green-100" title="התנתק">
+              <LogOut size={15} />
+            </button>
+          </div>
+        )}
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Nav links + actions on the right */}
         <div className="flex items-center gap-3">
-          <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">עיון</Link>
+          <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">🛒 כיכר השוק</Link>
           <Link href="/wanted" className="hover:text-green-100 text-sm hidden sm:block">🕯️ מחפש בנרות</Link>
+          {user && <Link href="/favorites" className="hover:text-green-100 text-sm hidden sm:block">⭐ מועדפים</Link>}
 
           {user ? (
             <>
-              <Link
-                href="/sell"
-                className="flex items-center gap-1 bg-white text-green-600 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-green-50"
-              >
+              <Link href="/sell"
+                className="flex items-center gap-1 bg-white text-green-600 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-green-50">
                 <Plus size={15} /> מכור
               </Link>
-
-              <Link href="/my-listings" className="flex items-center gap-2 bg-green-700 hover:bg-green-800 px-3 py-1.5 rounded-lg text-sm">
-                <User size={15} />
-                <span className="hidden sm:inline">{user.name}</span>
-                <span className="sm:hidden">אני</span>
-              </Link>
-
-              <button
-                onClick={logout}
-                className="flex items-center gap-1 hover:text-green-100 text-sm"
-                title="התנתק"
-              >
-                <LogOut size={16} />
-              </button>
             </>
           ) : (
             <>

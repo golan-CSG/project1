@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Mail, MessageCircle, Trash2, Pencil, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Mail, MessageCircle, Trash2, Pencil, ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", brakes: "בלמים", drivetrain: "הנעה",
@@ -39,17 +39,30 @@ export default function ListingPage() {
   const [me, setMe] = useState<{ id: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [favorited, setFavorited] = useState(false);
 
   useEffect(() => {
     Promise.all([
       fetch(`/api/listings/${id}`).then((r) => r.json()),
       fetch("/api/me").then((r) => r.json()),
-    ]).then(([listingData, meData]) => {
+      fetch(`/api/favorites/${id}`).then((r) => r.json()),
+    ]).then(([listingData, meData, favData]) => {
       setListing(listingData);
       setMe(meData);
+      setFavorited(favData.favorited);
       setLoading(false);
     });
   }, [id]);
+
+  async function toggleFavorite() {
+    const res = await fetch("/api/favorites", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ listingId: id }),
+    });
+    const data = await res.json();
+    if (res.ok) setFavorited(data.favorited);
+  }
 
   async function deleteListing() {
     if (!confirm("למחוק את המודעה?")) return;
@@ -169,6 +182,17 @@ export default function ListingPage() {
 
             {/* Action buttons */}
             <div className="flex gap-3 flex-wrap">
+              {me && !isOwner && (
+                <button onClick={toggleFavorite}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
+                    favorited
+                      ? "bg-yellow-50 text-yellow-600 border-yellow-300 hover:bg-yellow-100"
+                      : "bg-white text-slate-500 border-slate-200 hover:bg-yellow-50 hover:text-yellow-500"
+                  }`}>
+                  <Star size={16} fill={favorited ? "currentColor" : "none"} />
+                  {favorited ? "נשמר במועדפים" : "הוסף למועדפים"}
+                </button>
+              )}
               {listing.phone && (
                 <a href={`https://wa.me/${listing.phone.replace(/\D/g, "")}`}
                   target="_blank" rel="noopener noreferrer"
