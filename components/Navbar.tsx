@@ -48,6 +48,7 @@ export default function Navbar() {
         {/* Nav links + actions on the right */}
         <div className="flex items-center gap-3">
           <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">🛒 כיכר השוק</Link>
+          <Link href="/search" className="hover:text-green-100 text-sm hidden sm:block">🔍 חיפוש מתקדם</Link>
           <Link href="/wanted" className="hover:text-green-100 text-sm hidden sm:block">🕯️ מחפש בנרות</Link>
           {user && <Link href="/favorites" className="hover:text-green-100 text-sm hidden sm:block">⭐ מועדפים</Link>}
           {user && <Link href="/my-listings" className="hover:text-green-100 text-sm hidden sm:block">📦 המודעות שלי</Link>}
