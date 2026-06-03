@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Bike } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -33,7 +33,7 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto mt-8">
       <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
         <div className="flex items-center justify-center gap-2 mb-6">
-          <Bike size={32} className="text-green-600" />
+          <div className="bg-green-600 rounded-xl p-1.5"><Logo size={32} /></div>
           <h1 className="text-2xl font-bold text-slate-800">התחברות ל־Bikeshook</h1>
         </div>
         <form onSubmit={submit} className="space-y-4">

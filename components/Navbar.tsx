@@ -26,7 +26,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-xl font-bold hover:text-green-100">
           <Bike size={28} />
-          Bikeshook
+          <span dir="ltr">Bikeshook</span>
         </Link>
 
         {/* Username + logout next to logo */}
@@ -56,7 +56,7 @@ export default function Navbar() {
             <>
               <Link href="/sell"
                 className="flex items-center gap-1 bg-white text-green-600 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-green-50">
-                <Plus size={15} /> מכור
+                <Plus size={15} /> פרסם
               </Link>
             </>
           ) : (
