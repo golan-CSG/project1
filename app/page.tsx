@@ -93,6 +93,8 @@ export default function Home() {
         ))}
       </div>
 
+      <h2 className="text-xl font-bold text-slate-700 mb-4">פורסמו לאחרונה</h2>
+
       {loading ? (
         <div className="text-center text-slate-400 py-16">טוען...</div>
       ) : listings.length === 0 ? (

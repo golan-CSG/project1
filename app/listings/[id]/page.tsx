@@ -25,6 +25,7 @@ interface Listing {
   location?: string;
   imageUrl?: string;
   images?: string;
+  phone?: string;
   userId?: string;
   createdAt: string;
   user: { name: string; email: string; whatsapp?: string };
@@ -147,6 +148,12 @@ export default function ListingPage() {
                     <Trash2 size={16} /> מחק מודעה
                   </button>
                 </>
+              )}
+              {listing.phone && (
+                <a href={`tel:${listing.phone}`}
+                  className="flex items-center gap-2 bg-slate-100 text-slate-700 border border-slate-200 px-4 py-2.5 rounded-lg hover:bg-slate-200 text-sm font-medium">
+                  📱 {listing.phone}
+                </a>
               )}
               <a href={`mailto:${listing.user.email}`}
                 className="flex items-center gap-2 bg-slate-800 text-white px-4 py-2.5 rounded-lg hover:bg-slate-700 text-sm font-medium">

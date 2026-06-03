@@ -29,7 +29,7 @@ export default function EditListingPage() {
 
   const [form, setForm] = useState({
     title: "", description: "", price: "", category: "wheels",
-    brand: "", condition: "good", location: "",
+    brand: "", condition: "good", location: "", phone: "",
   });
   const [images, setImages] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -51,6 +51,7 @@ export default function EditListingPage() {
         brand: listing.brand || "",
         condition: listing.condition,
         location: listing.location || "",
+        phone: listing.phone || "",
       });
       // Parse existing images
       let imgs: string[] = [];
@@ -145,10 +146,18 @@ export default function EditListingPage() {
               className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none text-right" />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">מיקום</label>
-            <input type="text" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">מיקום</label>
+              <input type="text" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })}
+                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">טלפון נייד</label>
+              <input type="tel" placeholder="05X-XXXXXXX" value={form.phone}
+                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
+            </div>
           </div>
 
           {error && <p className="text-red-500 text-sm text-right">{error}</p>}
