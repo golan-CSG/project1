@@ -63,13 +63,24 @@ export default function Home() {
   if (user === undefined) return null;
 
   if (!user) return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center gap-6">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/mechanic.png" alt="מכונאי אופניים" className="w-[600px] h-[600px] object-contain" />
-      <h1 className="text-3xl font-bold text-slate-800 max-w-xl">אתר זה מיועד לפרסום מכירה וקנייה של חלקי אופניים לרוכבות ורוכבים שאוהבים לתחזק ולתקן בעצמם</h1>
-      <a href="/login" className="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 text-lg">
-        התחברות / הרשמה
-      </a>
+    <div
+      className="absolute inset-0 top-0 left-0 right-0 bottom-0 -mx-4 -my-8 flex flex-col items-center justify-center gap-6 text-center px-6"
+      style={{
+        backgroundImage: "url('/images/mechanic.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="relative z-10 flex flex-col items-center gap-6">
+        <h1 className="text-5xl font-bold text-white max-w-2xl drop-shadow-lg leading-tight">
+          אתר זה מיועד לפרסום מכירה וקנייה של חלקי אופניים לרוכבות ורוכבים שאוהבים לתחזק ולתקן בעצמם
+        </h1>
+        <a href="/login" className="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 text-lg shadow-lg">
+          התחברות / הרשמה
+        </a>
+      </div>
     </div>
   );
 
