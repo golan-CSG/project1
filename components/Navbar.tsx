@@ -15,9 +15,7 @@ export default function Navbar() {
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
-    setUser(null);
-    router.push("/");
-    router.refresh();
+    window.location.href = "/";
   }
 
   return (
