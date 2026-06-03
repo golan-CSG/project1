@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Top tube -->
+  <line x1="20" y1="30" x2="70" y2="30" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
+  <!-- Down tube -->
+  <line x1="20" y1="30" x2="75" y2="70" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
+  <!-- Seat tube -->
+  <line x1="70" y1="30" x2="75" y2="70" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
+  <!-- Chain stay -->
+  <line x1="75" y1="70" x2="20" y2="70" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
+  <!-- Seat stay -->
+  <line x1="70" y1="30" x2="20" y2="70" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+  <!-- Head tube -->
+  <rect x="14" y="24" width="8" height="18" rx="4" fill="#1e293b"/>
+  <!-- Bottom bracket -->
+  <circle cx="75" cy="70" r="7" fill="#1e293b"/>
+  <!-- Dropout left -->
+  <circle cx="20" cy="70" r="5" fill="#374151"/>
+  <!-- Fork -->
+  <line x1="18" y1="30" x2="15" y2="70" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
+</svg>

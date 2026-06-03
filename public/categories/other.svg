@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Wrench -->
+  <path d="M20 75 L55 40 Q58 30 68 28 Q65 35 68 40 L75 47 Q80 42 72 35 Q82 33 85 42 Q88 55 78 62 Q70 67 62 60 L27 85 Q22 90 17 85 Q12 80 17 75Z" fill="#374151"/>
+  <circle cx="22" cy="80" r="6" fill="#6b7280"/>
+  <!-- Small gear -->
+  <circle cx="72" cy="30" r="12" fill="none" stroke="#ef4444" stroke-width="4"/>
+  <circle cx="72" cy="30" r="4" fill="#ef4444"/>
+  <circle cx="72" cy="18" r="3" fill="#ef4444"/>
+  <circle cx="72" cy="42" r="3" fill="#ef4444"/>
+  <circle cx="60" cy="30" r="3" fill="#ef4444"/>
+  <circle cx="84" cy="30" r="3" fill="#ef4444"/>
+</svg>

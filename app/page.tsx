@@ -4,17 +4,17 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 
 const CATEGORIES = [
-  { value: "all", label: "הכל" },
-  { value: "wheels", label: "גלגלים" },
-  { value: "brakes", label: "בלמים" },
-  { value: "drivetrain", label: "הינע" },
-  { value: "handlebars", label: "כידון" },
-  { value: "saddle", label: "אוכף" },
-  { value: "frame", label: "שלדה" },
-  { value: "forks", label: "סטם ושלוחות" },
-  { value: "pedals", label: "פדלים" },
-  { value: "tires", label: "צמיגים" },
-  { value: "other", label: "אחר" },
+  { value: "all", label: "הכל", img: null },
+  { value: "wheels", label: "גלגלים", img: "/categories/wheels.svg" },
+  { value: "brakes", label: "בלמים", img: "/categories/brakes.svg" },
+  { value: "drivetrain", label: "הינע", img: "/categories/drivetrain.svg" },
+  { value: "handlebars", label: "כידון", img: "/categories/handlebars.svg" },
+  { value: "saddle", label: "אוכף", img: "/categories/saddle.svg" },
+  { value: "frame", label: "שלדה", img: "/categories/frame.svg" },
+  { value: "forks", label: "סטם ושלוחות", img: "/categories/forks.svg" },
+  { value: "pedals", label: "פדלים", img: "/categories/pedals.svg" },
+  { value: "tires", label: "צמיגים", img: "/categories/tires.svg" },
+  { value: "other", label: "אחר", img: "/categories/other.svg" },
 ];
 
 interface Listing {
@@ -78,18 +78,24 @@ export default function Home() {
         />
       </div>
 
-      <div className="flex gap-2 flex-wrap mb-8">
+      <div className="flex gap-3 flex-wrap mb-8">
         {CATEGORIES.map((cat) => (
           <button
             key={cat.value}
             onClick={() => setCategory(cat.value)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className={`flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all border ${
               category === cat.value
-                ? "bg-green-600 text-white"
-                : "bg-white border border-slate-200 text-slate-600 hover:bg-green-50"
+                ? "bg-green-600 text-white border-green-600 shadow-md scale-105"
+                : "bg-white border-slate-200 text-slate-600 hover:border-green-400 hover:shadow-sm"
             }`}
           >
-            {cat.label}
+            {cat.img ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={cat.img} alt={cat.label} className="w-10 h-10 object-contain" />
+            ) : (
+              <span className="text-2xl">🛒</span>
+            )}
+            <span>{cat.label}</span>
           </button>
         ))}
       </div>

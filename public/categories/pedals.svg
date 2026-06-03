@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Left pedal body -->
+  <rect x="5" y="38" width="42" height="18" rx="5" fill="#374151"/>
+  <!-- Left pedal pins -->
+  <line x1="15" y1="38" x2="15" y2="32" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  <line x1="25" y1="38" x2="25" y2="32" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  <line x1="35" y1="38" x2="35" y2="32" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  <line x1="15" y1="56" x2="15" y2="62" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  <line x1="25" y1="56" x2="25" y2="62" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  <line x1="35" y1="56" x2="35" y2="62" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  <!-- Left axle -->
+  <line x1="47" y1="47" x2="57" y2="47" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>
+  <!-- Right pedal body -->
+  <rect x="53" y="44" width="42" height="18" rx="5" fill="#ef4444"/>
+  <!-- Right pedal pins -->
+  <line x1="63" y1="44" x2="63" y2="38" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+  <line x1="73" y1="44" x2="73" y2="38" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+  <line x1="83" y1="44" x2="83" y2="38" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+  <line x1="63" y1="62" x2="63" y2="68" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+  <line x1="73" y1="62" x2="73" y2="68" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+  <line x1="83" y1="62" x2="83" y2="68" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+</svg>

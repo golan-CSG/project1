@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Stem -->
+  <rect x="45" y="50" width="10" height="35" rx="5" fill="#374151"/>
+  <!-- Handlebar -->
+  <path d="M15 40 Q50 30 85 40" fill="none" stroke="#1e293b" stroke-width="8" stroke-linecap="round"/>
+  <!-- Left grip -->
+  <rect x="10" y="35" width="14" height="16" rx="7" fill="#ef4444"/>
+  <!-- Right grip -->
+  <rect x="76" y="35" width="14" height="16" rx="7" fill="#ef4444"/>
+  <!-- Stem clamp -->
+  <rect x="42" y="46" width="16" height="10" rx="3" fill="#6b7280"/>
+  <!-- Brake lever left -->
+  <path d="M18 42 L10 55" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+  <!-- Brake lever right -->
+  <path d="M82 42 L90 55" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+</svg>

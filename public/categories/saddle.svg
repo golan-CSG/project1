@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Saddle body -->
+  <path d="M15 45 Q30 30 50 32 Q70 30 85 45 Q75 55 50 55 Q25 55 15 45Z" fill="#1e293b"/>
+  <!-- Saddle highlight -->
+  <path d="M25 42 Q40 34 60 34 Q72 34 80 42 Q70 44 50 44 Q30 44 25 42Z" fill="#374151"/>
+  <!-- Rail left -->
+  <line x1="30" y1="55" x2="25" y2="85" stroke="#6b7280" stroke-width="3" stroke-linecap="round"/>
+  <!-- Rail right -->
+  <line x1="70" y1="55" x2="75" y2="85" stroke="#6b7280" stroke-width="3" stroke-linecap="round"/>
+  <!-- Seatpost -->
+  <rect x="46" y="75" width="8" height="18" rx="4" fill="#374151"/>
+</svg>
