@@ -154,8 +154,8 @@ export default function EditListingPage() {
                 className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">טלפון נייד</label>
-              <input type="tel" placeholder="05X-XXXXXXX" value={form.phone}
+              <label className="block text-sm font-medium text-slate-700 mb-1">טלפון נייד *</label>
+              <input type="tel" placeholder="05X-XXXXXXX" required value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
                 className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
             </div>

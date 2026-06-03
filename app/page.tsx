@@ -117,7 +117,7 @@ export default function Home() {
                   <p className="font-semibold text-slate-800 truncate">{listing.title}</p>
                   <p className="text-green-600 font-bold text-lg">₪{listing.price}</p>
                   <div className="flex items-center justify-between mt-1">
-                    <span className="text-xs text-slate-400">{listing.condition}</span>
+                    <span className="text-xs text-slate-400">{{ "like new": "כמו חדש", good: "טוב", fair: "סביר", "for parts": "לפירוק" }[listing.condition] || listing.condition}</span>
                     <span className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded">{CATEGORIES.find(c => c.value === listing.category)?.label || listing.category}</span>
                   </div>
                   {listing.location && <p className="text-xs text-slate-400 mt-1">📍 {listing.location}</p>}
