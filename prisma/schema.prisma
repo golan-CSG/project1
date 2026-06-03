@@ -12,6 +12,7 @@ model User {
   password     String
   name         String
   whatsapp     String?
+  avatar       String?
   createdAt    DateTime     @default(now())
   listings     Listing[]
   wantedPosts  WantedPost[]

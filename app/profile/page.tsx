@@ -1,24 +1,27 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { User, Mail, Phone, Calendar, Pencil, Check, X } from "lucide-react";
+import { User, Mail, Phone, Calendar, Pencil, Check, X, Camera } from "lucide-react";
 
 interface Profile {
   id: string;
   name: string;
   email: string;
   whatsapp: string;
+  avatar?: string;
   createdAt: string;
 }
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [editing, setEditing] = useState(false);
-  const [form, setForm] = useState({ name: "", whatsapp: "" });
+  const [form, setForm] = useState({ name: "", whatsapp: "", avatar: "" });
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [listingCount, setListingCount] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -28,14 +31,37 @@ export default function ProfilePage() {
     }).then((data) => {
       if (!data) return;
       setProfile(data);
-      setForm({ name: data.name, whatsapp: data.whatsapp || "" });
-
-      // fetch listing count
+      setForm({ name: data.name, whatsapp: data.whatsapp || "", avatar: data.avatar || "" });
       fetch(`/api/listings?userId=${data.id}`).then(r => r.json()).then(listings => {
         setListingCount(listings.length);
       });
     });
   }, [router]);
+
+  async function handleAvatarUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch("/api/upload", { method: "POST", body: formData });
+    const data = await res.json();
+    setUploading(false);
+    if (res.ok) {
+      setForm((f) => ({ ...f, avatar: data.url }));
+      // Save avatar immediately
+      await fetch("/api/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, avatar: data.url }),
+      }).then(r => r.json()).then(updated => {
+        setProfile(updated);
+        setForm({ name: updated.name, whatsapp: updated.whatsapp || "", avatar: updated.avatar || "" });
+      });
+    } else {
+      setError(data.error || "שגיאה בהעלאת תמונה");
+    }
+  }
 
   async function save() {
     setSaving(true);
@@ -63,15 +89,39 @@ export default function ProfilePage() {
     year: "numeric", month: "long", day: "numeric",
   });
 
+  const avatarSrc = form.avatar || profile.avatar;
+
   return (
     <div className="max-w-xl mx-auto">
       <h1 className="text-2xl font-bold text-slate-800 mb-6">הפרופיל שלי</h1>
 
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        {/* Header */}
+        {/* Header with avatar */}
         <div className="bg-green-600 px-6 py-8 text-center">
-          <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-3">
-            <User size={40} className="text-white" />
+          <div className="relative w-24 h-24 mx-auto mb-3">
+            {avatarSrc ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={avatarSrc} alt="תמונת פרופיל"
+                className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md" />
+            ) : (
+              <div className="w-24 h-24 rounded-full bg-white/20 border-4 border-white flex items-center justify-center">
+                <User size={40} className="text-white" />
+              </div>
+            )}
+            {/* Camera button */}
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="absolute bottom-0 left-0 bg-yellow-400 hover:bg-yellow-300 text-green-800 rounded-full p-1.5 shadow-md transition-colors"
+              title="שנה תמונה"
+            >
+              {uploading ? (
+                <span className="text-xs px-1">...</span>
+              ) : (
+                <Camera size={14} />
+              )}
+            </button>
+            <input ref={fileInputRef} type="file" accept="image/*" onChange={handleAvatarUpload} className="hidden" />
           </div>
           <h2 className="text-2xl font-bold text-white">{profile.name}</h2>
           <p className="text-green-100 text-sm mt-1">{listingCount} מודעות פעילות</p>
@@ -88,7 +138,6 @@ export default function ProfilePage() {
                   <span className="text-sm">שם</span>
                 </div>
               </div>
-
               <div className="flex items-center justify-between py-3 border-b border-slate-100">
                 <span className="text-slate-800">{profile.email}</span>
                 <div className="flex items-center gap-2 text-slate-400">
@@ -96,7 +145,6 @@ export default function ProfilePage() {
                   <span className="text-sm">אימייל</span>
                 </div>
               </div>
-
               <div className="flex items-center justify-between py-3 border-b border-slate-100">
                 <a href={`https://wa.me/${(profile.whatsapp || "").replace(/\D/g, "")}`}
                   target="_blank" rel="noopener noreferrer"
@@ -108,7 +156,6 @@ export default function ProfilePage() {
                   <span className="text-sm">טלפון נייד</span>
                 </div>
               </div>
-
               <div className="flex items-center justify-between py-3">
                 <span className="text-slate-800">{joinDate}</span>
                 <div className="flex items-center gap-2 text-slate-400">
@@ -136,14 +183,12 @@ export default function ProfilePage() {
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
               </div>
-
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">אימייל</label>
                 <input type="email" disabled value={profile.email}
                   className="w-full px-3 py-2 border border-slate-100 rounded-lg bg-slate-50 text-slate-400 cursor-not-allowed" />
                 <p className="text-xs text-slate-400 mt-1">לא ניתן לשנות אימייל</p>
               </div>
-
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">טלפון נייד *</label>
                 <input type="tel" required value={form.whatsapp}
