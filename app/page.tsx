@@ -61,7 +61,17 @@ export default function Home() {
   }, [search, category, maxPrice, user]);
 
   if (user === undefined) return null;
-  if (!user) return null;
+
+  if (!user) return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center gap-6">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/mechanic.png" alt="מכונאי אופניים" className="w-72 h-72 object-contain" />
+      <h1 className="text-3xl font-bold text-slate-800 max-w-xl">אתר זה מיועד לפרסום מכירה וקנייה של חלקי אופניים לרוכבות ורוכבים שאוהבים לתחזק ולתקן בעצמם</h1>
+      <a href="/login" className="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 text-lg">
+        התחברות / הרשמה
+      </a>
+    </div>
+  );
 
   return (
     <div>
