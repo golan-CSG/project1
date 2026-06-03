@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Steerer tube -->
+  <rect x="43" y="4" width="14" height="20" rx="7" fill="#374151"/>
+  <!-- Crown -->
+  <path d="M28 22 Q50 18 72 22 L68 32 Q50 28 32 32Z" fill="#1e293b"/>
+  <!-- Left fork leg -->
+  <path d="M34 32 Q28 55 22 88" stroke="#374151" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- Right fork leg -->
+  <path d="M66 32 Q72 55 78 88" stroke="#374151" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- Left dropout -->
+  <rect x="16" y="85" width="14" height="8" rx="3" fill="#1e293b"/>
+  <!-- Right dropout -->
+  <rect x="70" y="85" width="14" height="8" rx="3" fill="#1e293b"/>
+  <!-- Brake mount -->
+  <rect x="40" y="58" width="20" height="7" rx="3" fill="#64748b"/>
+  <!-- Arch bridge between legs (suspension style) -->
+  <path d="M26 50 Q50 44 74 50" stroke="#6b7280" stroke-width="3" stroke-linecap="round" fill="none"/>
+</svg>

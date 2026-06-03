@@ -10,9 +10,10 @@ const CATEGORIES = [
   { value: "handlebars", label: "כידון" },
   { value: "saddle", label: "אוכף" },
   { value: "frame", label: "שלדה" },
-  { value: "forks", label: "סטם ושלוחות" },
+  { value: "forks", label: "סטם" },
   { value: "pedals", label: "פדלים" },
   { value: "tires", label: "צמיגים" },
+  { value: "fork", label: "מזלג" },
   { value: "other", label: "אחר" },
 ];
 
