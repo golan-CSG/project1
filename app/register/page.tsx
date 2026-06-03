@@ -53,8 +53,8 @@ export default function RegisterPage() {
               className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">וואטסאפ <span className="text-slate-400">(אופציונלי)</span></label>
-            <input type="text" value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
+            <label className="block text-sm font-medium text-slate-700 mb-1">וואטסאפ *</label>
+            <input type="text" required value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
               placeholder="+972501234567"
               className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
           </div>
