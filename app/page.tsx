@@ -11,7 +11,7 @@ const CATEGORIES = [
   { value: "handlebars", label: "כידון", img: "/categories/handlebars.svg" },
   { value: "saddle", label: "אוכף", img: "/categories/saddle.svg" },
   { value: "frame", label: "שלדה", img: "/categories/frame.svg" },
-  { value: "forks", label: "סטם", img: "/categories/forks.svg" },
+  { value: "forks", label: "סטם", img: "/images/stem.webp" },
   { value: "fork", label: "מזלג", img: "/categories/fork.svg" },
   { value: "pedals", label: "פדלים", img: "/categories/pedals.svg" },
   { value: "tires", label: "צמיגים", img: "/categories/tires.svg" },
