@@ -209,24 +209,17 @@ export default function ListingPage() {
                   {favorited ? "נשמר במועדפים" : "הוסף למועדפים"}
                 </button>
               )}
-              {listing.phone && (
-                <a href={`https://wa.me/${listing.phone.replace(/\D/g, "")}`}
+              {(listing.phone || listing.user.whatsapp) && (
+                <a href={`https://wa.me/${(listing.phone || listing.user.whatsapp || "").replace(/\D/g, "")}`}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-green-500 text-white px-4 py-2.5 rounded-lg hover:bg-green-600 text-sm font-medium">
-                  <MessageCircle size={16} /> וואטסאפ ({listing.phone})
+                  <MessageCircle size={16} /> וואטסאפ
                 </a>
               )}
               <a href={`mailto:${listing.email || listing.user.email}`}
                 className="flex items-center gap-2 bg-slate-800 text-white px-4 py-2.5 rounded-lg hover:bg-slate-700 text-sm font-medium">
                 <Mail size={16} /> שלח אימייל
               </a>
-              {listing.user.whatsapp && (
-                <a href={`https://wa.me/${listing.user.whatsapp.replace(/\D/g, "")}`}
-                  target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-green-500 text-white px-4 py-2.5 rounded-lg hover:bg-green-600 text-sm font-medium">
-                  <MessageCircle size={16} /> וואטסאפ
-                </a>
-              )}
               {isOwner && (
                 <>
                   <button onClick={toggleSold}

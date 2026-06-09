@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { Bike, User, LogOut, Plus } from "lucide-react";
 
 export default function Navbar() {
-  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+  const [user, setUser] = useState<{ name: string; email: string; isAdmin?: boolean } | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -45,7 +45,14 @@ export default function Navbar() {
 
         {/* Nav links + actions on the right */}
         <div className="flex items-center gap-3">
+          {user?.isAdmin && (
+            <Link href="/admin"
+              className="flex items-center gap-1 bg-yellow-400 text-slate-900 px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-yellow-300 shadow-sm border border-yellow-500">
+              🛡️ ניהול
+            </Link>
+          )}
           {user && <Link href="/" className="hover:text-green-100 text-sm hidden sm:block">🛒 כיכר השוק</Link>}
+          {user && <Link href="/forum" className="hover:text-green-100 text-sm hidden sm:block">💬 שאל את המומחה</Link>}
           {user && <Link href="/search" className="hover:text-green-100 text-sm hidden sm:block">🔍 חיפוש מתקדם</Link>}
           {user && <Link href="/favorites" className="hover:text-green-100 text-sm hidden sm:block">⭐ מועדפים</Link>}
           {user && <Link href="/my-listings" className="hover:text-green-100 text-sm hidden sm:block">📦 המודעות שלי</Link>}

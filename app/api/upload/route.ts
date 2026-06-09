@@ -21,5 +21,11 @@ export async function POST(req: NextRequest) {
 
   await writeFile(filePath, buffer);
 
-  return NextResponse.json({ url: `/uploads/${fileName}` });
+  const isImage = /^(jpg|jpeg|png|gif|webp|svg|bmp)$/.test(ext);
+
+  return NextResponse.json({
+    url: `/uploads/${fileName}`,
+    name: file.name,
+    type: isImage ? "image" : "file",
+  });
 }

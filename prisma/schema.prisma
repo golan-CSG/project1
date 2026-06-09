@@ -13,10 +13,40 @@ model User {
   name         String
   whatsapp     String?
   avatar       String?
+  isAdmin      Boolean      @default(false)
   createdAt    DateTime     @default(now())
   listings     Listing[]
   wantedPosts  WantedPost[]
   favorites    Favorite[]
+  questions    Question[]
+  answers      Answer[]
+}
+
+model Question {
+  id          String   @id @default(cuid())
+  title       String
+  body        String
+  attachment  String?
+  attachType  String?
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  answers     Answer[]
+}
+
+model Answer {
+  id          String   @id @default(cuid())
+  body        String
+  attachment  String?
+  attachType  String?
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  questionId  String
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  parentId    String?
+  parent      Answer?  @relation("AnswerReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies     Answer[] @relation("AnswerReplies")
 }
 
 model Favorite {
