@@ -1,8 +1,8 @@
-const { PrismaBetterSqlite3 } = require('@prisma/adapter-better-sqlite3');
+require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
-const path = require('path');
+const { PrismaPg } = require('@prisma/adapter-pg');
 
-const adapter = new PrismaBetterSqlite3({ url: 'file:' + path.join(process.cwd(), 'prisma/dev.db') });
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 async function run() {
@@ -12,13 +12,12 @@ async function run() {
     user = await prisma.user.findUnique({ where: { email } });
     if (!user) { console.log('לא נמצא משתמש עם אימייל:', email); process.exit(1); }
   } else {
-    // default: oldest user
     user = await prisma.user.findFirst({ orderBy: { createdAt: 'asc' } });
     if (!user) { console.log('אין משתמשים במערכת'); process.exit(1); }
   }
   await prisma.user.update({ where: { id: user.id }, data: { isAdmin: true } });
-  console.log('✓', user.name, '(' + user.email + ') הוגדר כמנהל');
+  console.log('OK:', user.name, '(' + user.email + ') is now admin');
   await prisma.$disconnect();
 }
 
-run().catch((e) => { console.error(e); process.exit(1); });
+run().catch((e) => { console.error(e.message); process.exit(1); });
