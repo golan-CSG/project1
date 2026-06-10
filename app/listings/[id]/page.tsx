@@ -209,7 +209,7 @@ export default function ListingPage() {
                   {favorited ? "נשמר במועדפים" : "הוסף למועדפים"}
                 </button>
               )}
-              {(listing.phone || listing.user.whatsapp) && (
+              {me && !isOwner && (listing.phone || listing.user.whatsapp) && (
                 <a href={`https://wa.me/${(listing.phone || listing.user.whatsapp || "").replace(/\D/g, "")}`}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-green-500 text-white px-4 py-2.5 rounded-lg hover:bg-green-600 text-sm font-medium">
