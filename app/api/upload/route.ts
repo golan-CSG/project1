@@ -18,14 +18,23 @@ export async function POST(req: NextRequest) {
 
   let url: string;
 
+  // Find a Blob token under any name (Vercel may prefix it)
+  const blobTokenKey = Object.keys(process.env).find((k) => k.endsWith("BLOB_READ_WRITE_TOKEN"));
+  const blobToken = blobTokenKey ? process.env[blobTokenKey] : undefined;
+
   try {
     // In production (Vercel) use Blob storage; locally write to public/uploads
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    if (blobToken) {
       const blob = await put(`uploads/${fileName}`, file, {
         access: "public",
-        token: process.env.BLOB_READ_WRITE_TOKEN,
+        token: blobToken,
       });
       url = blob.url;
+    } else if (process.env.VERCEL) {
+      return NextResponse.json(
+        { error: "לא נמצא BLOB_READ_WRITE_TOKEN — חבר את ה-Blob store לפרויקט" },
+        { status: 500 }
+      );
     } else {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -36,7 +45,7 @@ export async function POST(req: NextRequest) {
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     return NextResponse.json(
-      { error: `שגיאה בהעלאה: ${message}`, hasToken: !!process.env.BLOB_READ_WRITE_TOKEN },
+      { error: `שגיאה בהעלאה: ${message}`, tokenKey: blobTokenKey || "none" },
       { status: 500 }
     );
   }
