@@ -1,6 +1,12 @@
 "use client";
 import { useRef } from "react";
 import { Paperclip, X, FileText } from "lucide-react";
+import { upload } from "@vercel/blob/client";
+
+function isImageFile(name: string) {
+  const ext = name.split(".").pop()?.toLowerCase() || "";
+  return /^(jpg|jpeg|png|gif|webp|svg|bmp)$/.test(ext);
+}
 
 interface Attachment {
   url: string;
@@ -24,17 +30,16 @@ export default function AttachmentUploader({ attachment, onChange, uploading, on
     if (!file) return;
 
     onUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/upload", { method: "POST", body: formData });
-    const data = await res.json();
-    onUploading(false);
-
-    if (res.ok) {
-      onChange({ url: data.url, name: data.name, type: data.type });
-    } else {
-      onError(data.error || "שגיאה בהעלאת הקובץ");
+    try {
+      const blob = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "/api/upload",
+      });
+      onChange({ url: blob.url, name: file.name, type: isImageFile(file.name) ? "image" : "file" });
+    } catch (err) {
+      onError(err instanceof Error ? err.message : "שגיאה בהעלאת הקובץ");
     }
+    onUploading(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 

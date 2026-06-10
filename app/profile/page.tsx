@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { User, Mail, Phone, Calendar, Pencil, Check, X, Camera } from "lucide-react";
+import { upload } from "@vercel/blob/client";
 
 interface Profile {
   id: string;
@@ -42,25 +43,25 @@ export default function ProfilePage() {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/upload", { method: "POST", body: formData });
-    const data = await res.json();
-    setUploading(false);
-    if (res.ok) {
-      setForm((f) => ({ ...f, avatar: data.url }));
+    try {
+      const blob = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "/api/upload",
+      });
+      setForm((f) => ({ ...f, avatar: blob.url }));
       // Save avatar immediately
       await fetch("/api/profile", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, avatar: data.url }),
+        body: JSON.stringify({ ...form, avatar: blob.url }),
       }).then(r => r.json()).then(updated => {
         setProfile(updated);
         setForm({ name: updated.name, whatsapp: updated.whatsapp || "", avatar: updated.avatar || "" });
       });
-    } else {
-      setError(data.error || "שגיאה בהעלאת תמונה");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "שגיאה בהעלאת תמונה");
     }
+    setUploading(false);
   }
 
   async function save() {

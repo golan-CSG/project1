@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { ImagePlus, X } from "lucide-react";
+import { upload } from "@vercel/blob/client";
 
 const MAX_IMAGES = 3;
 
@@ -26,14 +27,14 @@ export default function ImageUploader({ images, onChange, uploading, onUploading
     const uploaded: string[] = [];
 
     for (const file of toUpload) {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body: formData });
-      const data = await res.json();
-      if (res.ok) {
-        uploaded.push(data.url);
-      } else {
-        onError(data.error || "שגיאה בהעלאת תמונה");
+      try {
+        const blob = await upload(file.name, file, {
+          access: "public",
+          handleUploadUrl: "/api/upload",
+        });
+        uploaded.push(blob.url);
+      } catch (err) {
+        onError(err instanceof Error ? err.message : "שגיאה בהעלאת תמונה");
       }
     }
 
