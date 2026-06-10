@@ -18,16 +18,27 @@ export async function POST(req: NextRequest) {
 
   let url: string;
 
-  // In production (Vercel) use Blob storage; locally write to public/uploads
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    const blob = await put(`uploads/${fileName}`, file, { access: "public" });
-    url = blob.url;
-  } else {
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const filePath = path.join(process.cwd(), "public", "uploads", fileName);
-    await writeFile(filePath, buffer);
-    url = `/uploads/${fileName}`;
+  try {
+    // In production (Vercel) use Blob storage; locally write to public/uploads
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const blob = await put(`uploads/${fileName}`, file, {
+        access: "public",
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+      });
+      url = blob.url;
+    } else {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const filePath = path.join(process.cwd(), "public", "uploads", fileName);
+      await writeFile(filePath, buffer);
+      url = `/uploads/${fileName}`;
+    }
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    return NextResponse.json(
+      { error: `שגיאה בהעלאה: ${message}`, hasToken: !!process.env.BLOB_READ_WRITE_TOKEN },
+      { status: 500 }
+    );
   }
 
   return NextResponse.json({
