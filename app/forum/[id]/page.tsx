@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Trash2, FileText, Download, User, Reply } from "lucide-react";
+import { ArrowRight, Trash2, FileText, Download, User, Reply, Pencil, X } from "lucide-react";
 import AttachmentUploader from "@/components/AttachmentUploader";
 
 interface Attachment { url: string; name: string; type: string; }
@@ -66,6 +66,14 @@ export default function QuestionPage() {
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  // Edit-question state
+  const [editing, setEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState("");
+  const [editBody, setEditBody] = useState("");
+  const [editAttachment, setEditAttachment] = useState<Attachment | null>(null);
+  const [editUploading, setEditUploading] = useState(false);
+  const [savingEdit, setSavingEdit] = useState(false);
 
   // Reply state (threaded)
   const [replyTo, setReplyTo] = useState<string | null>(null);
@@ -155,6 +163,34 @@ export default function QuestionPage() {
     load();
   }
 
+  function startEdit() {
+    if (!question) return;
+    setEditTitle(question.title);
+    setEditBody(question.body);
+    setEditAttachment(question.attachment ? { url: question.attachment, name: "צרופה", type: question.attachType || "image" } : null);
+    setEditing(true);
+  }
+
+  async function saveEdit(e: React.FormEvent) {
+    e.preventDefault();
+    setSavingEdit(true);
+    const res = await fetch(`/api/forum/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: editTitle,
+        body: editBody,
+        attachment: editAttachment?.url || null,
+        attachType: editAttachment?.type || null,
+      }),
+    });
+    setSavingEdit(false);
+    if (res.ok) {
+      setEditing(false);
+      load();
+    }
+  }
+
   async function deleteQuestion() {
     if (!confirm("למחוק את השאלה?")) return;
     await fetch(`/api/forum/${id}`, { method: "DELETE" });
@@ -175,25 +211,58 @@ export default function QuestionPage() {
 
       {/* Question */}
       <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm mb-6">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1 text-right">
-            <h1 className="text-2xl font-bold text-slate-800">{question.title}</h1>
-            <p className="text-slate-600 mt-3 whitespace-pre-wrap">{question.body}</p>
-            {question.attachment && (
-              <AttachmentView url={question.attachment} type={question.attachType}
-                canDelete={isOwner} onDelete={deleteQuestionAttachment} />
-            )}
-            <div className="flex items-center justify-end gap-3 mt-4 text-xs text-slate-400">
-              <span>{question.user.name}</span>
-              <span>{new Date(question.createdAt).toLocaleDateString("he-IL")}</span>
+        {editing ? (
+          <form onSubmit={saveEdit} className="space-y-3">
+            <div className="flex items-center justify-between">
+              <button type="button" onClick={() => setEditing(false)} className="text-slate-400 hover:text-slate-600"><X size={18} /></button>
+              <h2 className="font-bold text-slate-700">עריכת שאלה</h2>
             </div>
+            <input type="text" required value={editTitle} onChange={(e) => setEditTitle(e.target.value)}
+              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right font-semibold" />
+            <textarea required rows={4} value={editBody} onChange={(e) => setEditBody(e.target.value)}
+              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none text-right" />
+            <AttachmentUploader
+              attachment={editAttachment}
+              onChange={setEditAttachment}
+              uploading={editUploading}
+              onUploading={setEditUploading}
+              onError={() => {}}
+            />
+            <div className="flex gap-3">
+              <button type="button" onClick={() => setEditing(false)}
+                className="flex-1 border border-slate-200 text-slate-600 py-2.5 rounded-lg font-semibold hover:bg-slate-50">ביטול</button>
+              <button type="submit" disabled={savingEdit || editUploading}
+                className="flex-1 bg-green-600 text-white py-2.5 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50">
+                {savingEdit ? "שומר..." : "שמור"}
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1 text-right">
+              <h1 className="text-2xl font-bold text-slate-800">{question.title}</h1>
+              <p className="text-slate-600 mt-3 whitespace-pre-wrap">{question.body}</p>
+              {question.attachment && (
+                <AttachmentView url={question.attachment} type={question.attachType}
+                  canDelete={isOwner} onDelete={deleteQuestionAttachment} />
+              )}
+              <div className="flex items-center justify-end gap-3 mt-4 text-xs text-slate-400">
+                <span>{question.user.name}</span>
+                <span>{new Date(question.createdAt).toLocaleDateString("he-IL")}</span>
+              </div>
+            </div>
+            {isOwner && (
+              <div className="flex gap-1 flex-shrink-0">
+                <button onClick={startEdit} className="text-slate-400 hover:text-blue-500 p-1" title="ערוך">
+                  <Pencil size={17} />
+                </button>
+                <button onClick={deleteQuestion} className="text-slate-400 hover:text-red-500 p-1" title="מחק">
+                  <Trash2 size={18} />
+                </button>
+              </div>
+            )}
           </div>
-          {isOwner && (
-            <button onClick={deleteQuestion} className="text-slate-400 hover:text-red-500 p-1" title="מחק">
-              <Trash2 size={18} />
-            </button>
-          )}
-        </div>
+        )}
       </div>
 
       {/* Answers */}

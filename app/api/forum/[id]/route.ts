@@ -37,13 +37,34 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const { clearAttachment } = await req.json();
-  if (clearAttachment) {
+  const body = await req.json();
+
+  // Clear-attachment shortcut
+  if (body.clearAttachment) {
     await prisma.question.update({
       where: { id },
       data: { attachment: null, attachType: null },
     });
+    return NextResponse.json({ success: true });
   }
+
+  // Full edit of the question
+  if (body.title !== undefined || body.body !== undefined) {
+    if (!body.title || !body.body) {
+      return NextResponse.json({ error: "כותרת ותוכן הם שדות חובה" }, { status: 400 });
+    }
+    const updated = await prisma.question.update({
+      where: { id },
+      data: {
+        title: body.title,
+        body: body.body,
+        attachment: body.attachment ?? null,
+        attachType: body.attachType ?? null,
+      },
+    });
+    return NextResponse.json(updated);
+  }
+
   return NextResponse.json({ success: true });
 }
 
