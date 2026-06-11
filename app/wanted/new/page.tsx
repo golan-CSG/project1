@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import AttachmentUploader from "@/components/AttachmentUploader";
+
+interface Attachment { url: string; name: string; type: string; }
 
 const CATEGORIES = [
   { value: "bike", label: "אופני הרים" },
@@ -23,6 +26,8 @@ export default function NewWantedPage() {
     title: "", description: "", category: "wheels",
     maxPrice: "", location: "", phone: "", email: "",
   });
+  const [attachment, setAttachment] = useState<Attachment | null>(null);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -34,7 +39,11 @@ export default function NewWantedPage() {
     const res = await fetch("/api/wanted", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({
+        ...form,
+        attachment: attachment?.url || null,
+        attachType: attachment?.type || null,
+      }),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -105,6 +114,17 @@ export default function NewWantedPage() {
               className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
           </div>
 
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">תמונה <span className="text-slate-400">(אופציונלי)</span></label>
+            <AttachmentUploader
+              attachment={attachment}
+              onChange={setAttachment}
+              uploading={uploading}
+              onUploading={setUploading}
+              onError={setError}
+            />
+          </div>
+
           {error && <p className="text-red-500 text-sm text-right">{error}</p>}
 
           <div className="flex gap-3">
@@ -112,7 +132,7 @@ export default function NewWantedPage() {
               className="flex-1 border border-slate-200 text-slate-600 py-3 rounded-lg font-semibold hover:bg-slate-50">
               ביטול
             </button>
-            <button type="submit" disabled={loading}
+            <button type="submit" disabled={loading || uploading}
               className="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50 text-lg">
               {loading ? "מפרסם..." : "פרסם בקשה"}
             </button>

@@ -31,6 +31,8 @@ interface WantedPost {
   location?: string;
   phone?: string;
   email?: string;
+  attachment?: string;
+  attachType?: string;
   createdAt: string;
   user: { name: string; email: string; whatsapp?: string };
   responses: Response[];
@@ -118,6 +120,7 @@ export default function WantedPostPage() {
           </div>
         </div>
         <p className="text-slate-600 mt-3 whitespace-pre-wrap">{post.description}</p>
+        {post.attachment && <AttachmentView url={post.attachment} type={post.attachType} />}
         <div className="flex items-center justify-end gap-3 mt-4 text-xs text-slate-400">
           {post.location && <span>📍 {post.location}</span>}
           <span>{post.user.name}</span>

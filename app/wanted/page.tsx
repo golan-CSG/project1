@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Search, Pencil, Trash2, X } from "lucide-react";
+import AttachmentUploader from "@/components/AttachmentUploader";
+
+interface Attachment { url: string; name: string; type: string; }
 
 const CATEGORIES = [
   { value: "all", label: "הכל" },
@@ -33,6 +36,8 @@ interface WantedPost {
   email?: string;
   createdAt: string;
   userId: string;
+  attachment?: string;
+  attachType?: string;
   user: { name: string; email: string; whatsapp?: string };
   _count?: { responses: number };
 }
@@ -46,6 +51,8 @@ export default function WantedPage() {
 
   const [editing, setEditing] = useState<WantedPost | null>(null);
   const [editForm, setEditForm] = useState({ title: "", description: "", category: "wheels", maxPrice: "", location: "", phone: "", email: "" });
+  const [editAttachment, setEditAttachment] = useState<Attachment | null>(null);
+  const [editUploading, setEditUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [editError, setEditError] = useState("");
 
@@ -74,6 +81,7 @@ export default function WantedPage() {
       maxPrice: p.maxPrice ? String(p.maxPrice) : "",
       location: p.location || "", phone: p.phone || "", email: p.email || "",
     });
+    setEditAttachment(p.attachment ? { url: p.attachment, name: "צרופה", type: p.attachType || "image" } : null);
     setEditError("");
   }
 
@@ -85,7 +93,11 @@ export default function WantedPage() {
     const res = await fetch(`/api/wanted/${editing.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(editForm),
+      body: JSON.stringify({
+        ...editForm,
+        attachment: editAttachment?.url || null,
+        attachType: editAttachment?.type || null,
+      }),
     });
     const data = await res.json();
     setSaving(false);
@@ -259,11 +271,21 @@ export default function WantedPage() {
                   onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
                   className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">תמונה</label>
+                <AttachmentUploader
+                  attachment={editAttachment}
+                  onChange={setEditAttachment}
+                  uploading={editUploading}
+                  onUploading={setEditUploading}
+                  onError={setEditError}
+                />
+              </div>
               {editError && <p className="text-red-500 text-sm text-right">{editError}</p>}
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={() => setEditing(null)}
                   className="flex-1 border border-slate-200 text-slate-600 py-2.5 rounded-lg font-semibold hover:bg-slate-50">ביטול</button>
-                <button type="submit" disabled={saving}
+                <button type="submit" disabled={saving || editUploading}
                   className="flex-1 bg-green-600 text-white py-2.5 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50">
                   {saving ? "שומר..." : "שמור"}
                 </button>

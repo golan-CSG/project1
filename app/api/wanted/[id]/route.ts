@@ -28,7 +28,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const { title, description, category, maxPrice, location, phone, email } = await req.json();
+  const { title, description, category, maxPrice, location, phone, email, attachment, attachType } = await req.json();
   if (!title || !description || !category) {
     return NextResponse.json({ error: "שדות חובה חסרים" }, { status: 400 });
   }
@@ -39,6 +39,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       title, description, category,
       maxPrice: maxPrice ? parseFloat(maxPrice) : null,
       location, phone, email,
+      attachment: attachment ?? null,
+      attachType: attachType ?? null,
     },
   });
 

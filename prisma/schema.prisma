@@ -70,6 +70,8 @@ model WantedPost {
   location    String?
   phone       String?
   email       String?
+  attachment  String?
+  attachType  String?
   createdAt   DateTime         @default(now())
   userId      String
   user        User             @relation(fields: [userId], references: [id])

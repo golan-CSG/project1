@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
 
-  const { title, description, category, maxPrice, location, phone, email } = await req.json();
+  const { title, description, category, maxPrice, location, phone, email, attachment, attachType } = await req.json();
 
   if (!title || !description || !category) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     data: {
       title, description, category,
       maxPrice: maxPrice ? parseFloat(maxPrice) : null,
-      location, phone, email,
+      location, phone, email, attachment, attachType,
       userId: session.id,
     },
   });
