@@ -74,7 +74,7 @@ export default function Home() {
     >
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative z-10 flex flex-col items-center gap-6">
-        <h1 className="text-5xl font-bold text-white max-w-2xl drop-shadow-lg leading-tight">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white max-w-2xl drop-shadow-lg leading-tight">
           אתר זה מיועד לפרסום מכירה וקנייה של חלקי אופניים לרוכבות ורוכבים שאוהבים לתחזק ולתקן בעצמם
         </h1>
         <a href="/login" className="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 text-lg shadow-lg">
