@@ -24,7 +24,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   if (!session) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
 
   const post = await prisma.wantedPost.findUnique({ where: { id } });
-  if (!post || post.userId !== session.id) {
+  if (!post || post.userId !== session.id && !session.isAdmin) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -53,7 +53,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
   if (!session) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
 
   const post = await prisma.wantedPost.findUnique({ where: { id } });
-  if (!post || post.userId !== session.id) {
+  if (!post || post.userId !== session.id && !session.isAdmin) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

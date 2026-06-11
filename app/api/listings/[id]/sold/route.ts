@@ -8,7 +8,7 @@ export async function POST(_req: NextRequest, { params }: { params: Promise<{ id
   if (!session) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
 
   const listing = await prisma.listing.findUnique({ where: { id } });
-  if (!listing || listing.userId !== session.id) {
+  if (!listing || listing.userId !== session.id && !session.isAdmin) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

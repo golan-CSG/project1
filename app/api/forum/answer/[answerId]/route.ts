@@ -8,7 +8,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ an
   if (!session) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
 
   const answer = await prisma.answer.findUnique({ where: { id: answerId } });
-  if (!answer || answer.userId !== session.id) {
+  if (!answer || answer.userId !== session.id && !session.isAdmin) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -19,5 +19,20 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ an
       data: { attachment: null, attachType: null },
     });
   }
+  return NextResponse.json({ success: true });
+}
+
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ answerId: string }> }) {
+  const { answerId } = await params;
+  const session = await getSession();
+  if (!session) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
+
+  const answer = await prisma.answer.findUnique({ where: { id: answerId } });
+  if (!answer || (answer.userId !== session.id && !session.isAdmin)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  // Deleting a top-level answer also removes its replies (cascade on parentId)
+  await prisma.answer.delete({ where: { id: answerId } });
   return NextResponse.json({ success: true });
 }

@@ -47,7 +47,7 @@ export default function WantedPage() {
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
-  const [me, setMe] = useState<{ id: string } | null>(null);
+  const [me, setMe] = useState<{ id: string; isAdmin?: boolean } | null>(null);
 
   const [editing, setEditing] = useState<WantedPost | null>(null);
   const [editForm, setEditForm] = useState({ title: "", description: "", category: "wheels", maxPrice: "", location: "", phone: "", email: "" });
@@ -192,7 +192,7 @@ export default function WantedPage() {
                     className="flex items-center gap-1 text-slate-600 font-medium hover:underline">
                     💬 {post._count?.responses || 0} תגובות
                   </Link>
-                  {me?.id === post.userId && (
+                  {(me?.id === post.userId || me?.isAdmin) && (
                     <>
                       <button onClick={() => openEdit(post)}
                         className="flex items-center gap-1 text-blue-600 font-medium hover:underline">

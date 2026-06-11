@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, User, FileText, Download } from "lucide-react";
+import { ArrowRight, User, FileText, Download, Trash2 } from "lucide-react";
 import AttachmentUploader from "@/components/AttachmentUploader";
 import Linkify from "@/components/Linkify";
 
@@ -20,6 +20,7 @@ interface Response {
   attachment?: string;
   attachType?: string;
   createdAt: string;
+  userId: string;
   user: { name: string; avatar?: string };
 }
 
@@ -59,6 +60,7 @@ function AttachmentView({ url, type }: { url: string; type?: string }) {
 export default function WantedPostPage() {
   const { id } = useParams();
   const [post, setPost] = useState<WantedPost | null>(null);
+  const [me, setMe] = useState<{ id: string; isAdmin?: boolean } | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [body, setBody] = useState("");
@@ -72,11 +74,21 @@ export default function WantedPostPage() {
   }
 
   useEffect(() => {
-    fetch(`/api/wanted/${id}`).then((r) => r.json()).then((p) => {
+    Promise.all([
+      fetch(`/api/wanted/${id}`).then((r) => r.json()),
+      fetch("/api/me").then((r) => r.json()),
+    ]).then(([p, meData]) => {
       setPost(p);
+      setMe(meData);
       setLoading(false);
     });
   }, [id]);
+
+  async function deleteResponse(responseId: string) {
+    if (!confirm("למחוק את ההודעה?")) return;
+    await fetch(`/api/wanted/response/${responseId}`, { method: "DELETE" });
+    load();
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -149,9 +161,17 @@ export default function WantedPostPage() {
           <div key={r.id} className="bg-white rounded-xl border border-slate-200 p-4">
             <Linkify text={r.body} className="text-slate-700 text-right" />
             {r.attachment && <AttachmentView url={r.attachment} type={r.attachType} />}
-            <div className="flex items-center justify-end gap-2 mt-3 text-xs text-slate-400">
-              <span className="flex items-center gap-1"><User size={12} /> {r.user.name}</span>
-              <span>{new Date(r.createdAt).toLocaleDateString("he-IL")}</span>
+            <div className="flex items-center justify-between gap-2 mt-3 text-xs text-slate-400">
+              {(me?.id === r.userId || me?.isAdmin) ? (
+                <button onClick={() => deleteResponse(r.id)}
+                  className="flex items-center gap-1 text-red-500 hover:text-red-600 font-medium">
+                  <Trash2 size={11} /> מחק
+                </button>
+              ) : <span />}
+              <div className="flex items-center gap-2">
+                <span className="flex items-center gap-1"><User size={12} /> {r.user.name}</span>
+                <span>{new Date(r.createdAt).toLocaleDateString("he-IL")}</span>
+              </div>
             </div>
           </div>
         ))}

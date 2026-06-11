@@ -59,7 +59,7 @@ export default function QuestionPage() {
   const { id } = useParams();
   const router = useRouter();
   const [question, setQuestion] = useState<Question | null>(null);
-  const [me, setMe] = useState<{ id: string } | null>(null);
+  const [me, setMe] = useState<{ id: string; isAdmin?: boolean } | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [answerBody, setAnswerBody] = useState("");
@@ -154,6 +154,12 @@ export default function QuestionPage() {
     load();
   }
 
+  async function deleteAnswer(answerId: string) {
+    if (!confirm("למחוק את התשובה?")) return;
+    await fetch(`/api/forum/answer/${answerId}`, { method: "DELETE" });
+    load();
+  }
+
   async function deleteAnswerAttachment(answerId: string) {
     if (!confirm("למחוק את הקובץ המצורף?")) return;
     await fetch(`/api/forum/answer/${answerId}`, {
@@ -201,8 +207,9 @@ export default function QuestionPage() {
   if (loading) return <div className="text-center text-slate-400 py-16">טוען...</div>;
   if (!question || "error" in question) return <div className="text-center text-slate-400 py-16">השאלה לא נמצאה.</div>;
 
-  const isOwner = me?.id === question.userId;
+  const isOwner = me?.id === question.userId || !!me?.isAdmin;
   const totalAnswers = question.answers.reduce((s, a) => s + 1 + (a.replies?.length || 0), 0);
+  const canManageAnswer = (uid: string) => me?.id === uid || !!me?.isAdmin;
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -283,13 +290,21 @@ export default function QuestionPage() {
                 <Linkify text={a.body} className="text-slate-700 text-right" />
                 {a.attachment && (
                   <AttachmentView url={a.attachment} type={a.attachType}
-                    canDelete={me?.id === a.userId} onDelete={() => deleteAnswerAttachment(a.id)} />
+                    canDelete={canManageAnswer(a.userId)} onDelete={() => deleteAnswerAttachment(a.id)} />
                 )}
                 <div className="flex items-center justify-between mt-3 text-xs text-slate-400">
-                  <button onClick={() => { setReplyTo(replyTo === a.id ? null : a.id); setReplyBody(""); setReplyAttachment(null); }}
-                    className="flex items-center gap-1 text-green-600 hover:text-green-700 font-medium">
-                    <Reply size={13} /> השב
-                  </button>
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => { setReplyTo(replyTo === a.id ? null : a.id); setReplyBody(""); setReplyAttachment(null); }}
+                      className="flex items-center gap-1 text-green-600 hover:text-green-700 font-medium">
+                      <Reply size={13} /> השב
+                    </button>
+                    {canManageAnswer(a.userId) && (
+                      <button onClick={() => deleteAnswer(a.id)}
+                        className="flex items-center gap-1 text-red-500 hover:text-red-600 font-medium">
+                        <Trash2 size={12} /> מחק
+                      </button>
+                    )}
+                  </div>
                   <div className="flex items-center gap-2">
                     <span className="flex items-center gap-1"><User size={12} /> {a.user.name}</span>
                     <span>{new Date(a.createdAt).toLocaleDateString("he-IL")}</span>
@@ -309,11 +324,19 @@ export default function QuestionPage() {
                             <Linkify text={r.body} className="text-slate-700 text-right text-sm" />
                             {r.attachment && (
                               <AttachmentView url={r.attachment} type={r.attachType}
-                                canDelete={me?.id === r.userId} onDelete={() => deleteAnswerAttachment(r.id)} />
+                                canDelete={canManageAnswer(r.userId)} onDelete={() => deleteAnswerAttachment(r.id)} />
                             )}
-                            <div className="flex items-center justify-end gap-2 mt-2 text-xs text-slate-400">
-                              <span className="flex items-center gap-1"><User size={11} /> {r.user.name}</span>
-                              <span>{new Date(r.createdAt).toLocaleDateString("he-IL")}</span>
+                            <div className="flex items-center justify-between gap-2 mt-2 text-xs text-slate-400">
+                              {canManageAnswer(r.userId) ? (
+                                <button onClick={() => deleteAnswer(r.id)}
+                                  className="flex items-center gap-1 text-red-500 hover:text-red-600 font-medium">
+                                  <Trash2 size={11} /> מחק
+                                </button>
+                              ) : <span />}
+                              <div className="flex items-center gap-2">
+                                <span className="flex items-center gap-1"><User size={11} /> {r.user.name}</span>
+                                <span>{new Date(r.createdAt).toLocaleDateString("he-IL")}</span>
+                              </div>
                             </div>
                           </div>
                         </div>

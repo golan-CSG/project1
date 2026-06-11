@@ -37,7 +37,7 @@ export default function ListingPage() {
   const { id } = useParams();
   const router = useRouter();
   const [listing, setListing] = useState<Listing | null>(null);
-  const [me, setMe] = useState<{ id: string } | null>(null);
+  const [me, setMe] = useState<{ id: string; isAdmin?: boolean } | null>(null);
   const [loading, setLoading] = useState(true);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [favorited, setFavorited] = useState(false);
@@ -83,6 +83,7 @@ export default function ListingPage() {
   if (!listing || "error" in listing) return <div className="text-center text-slate-400 py-16">המודעה לא נמצאה.</div>;
 
   const isOwner = me?.id === listing.userId;
+  const canManage = isOwner || !!me?.isAdmin;
 
   // Parse images
   let photos: string[] = [];
@@ -220,7 +221,7 @@ export default function ListingPage() {
                 className="flex items-center gap-2 bg-slate-800 text-white px-4 py-2.5 rounded-lg hover:bg-slate-700 text-sm font-medium">
                 <Mail size={16} /> שלח אימייל
               </a>
-              {isOwner && (
+              {canManage && (
                 <>
                   <button onClick={toggleSold}
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
