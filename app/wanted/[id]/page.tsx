@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, User, FileText, Download } from "lucide-react";
 import AttachmentUploader from "@/components/AttachmentUploader";
+import Linkify from "@/components/Linkify";
 
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע", handlebars: "כידון",
@@ -119,7 +120,7 @@ export default function WantedPostPage() {
             {post.maxPrice && <span className="text-sm text-green-600 font-semibold">עד ₪{post.maxPrice}</span>}
           </div>
         </div>
-        <p className="text-slate-600 mt-3 whitespace-pre-wrap">{post.description}</p>
+        <Linkify text={post.description} className="text-slate-600 mt-3" />
         {post.attachment && <AttachmentView url={post.attachment} type={post.attachType} />}
         <div className="flex items-center justify-end gap-3 mt-4 text-xs text-slate-400">
           {post.location && <span>📍 {post.location}</span>}
@@ -146,7 +147,7 @@ export default function WantedPostPage() {
       <div className="space-y-3 mb-6">
         {post.responses.map((r) => (
           <div key={r.id} className="bg-white rounded-xl border border-slate-200 p-4">
-            <p className="text-slate-700 whitespace-pre-wrap text-right">{r.body}</p>
+            <Linkify text={r.body} className="text-slate-700 text-right" />
             {r.attachment && <AttachmentView url={r.attachment} type={r.attachType} />}
             <div className="flex items-center justify-end gap-2 mt-3 text-xs text-slate-400">
               <span className="flex items-center gap-1"><User size={12} /> {r.user.name}</span>

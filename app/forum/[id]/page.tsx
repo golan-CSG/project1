@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Trash2, FileText, Download, User, Reply, Pencil, X } from "lucide-react";
 import AttachmentUploader from "@/components/AttachmentUploader";
+import Linkify from "@/components/Linkify";
 
 interface Attachment { url: string; name: string; type: string; }
 
@@ -241,7 +242,7 @@ export default function QuestionPage() {
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 text-right">
               <h1 className="text-2xl font-bold text-slate-800">{question.title}</h1>
-              <p className="text-slate-600 mt-3 whitespace-pre-wrap">{question.body}</p>
+              <Linkify text={question.body} className="text-slate-600 mt-3" />
               {question.attachment && (
                 <AttachmentView url={question.attachment} type={question.attachType}
                   canDelete={isOwner} onDelete={deleteQuestionAttachment} />
@@ -279,7 +280,7 @@ export default function QuestionPage() {
                 {index + 1}
               </span>
               <div className="flex-1">
-                <p className="text-slate-700 whitespace-pre-wrap text-right">{a.body}</p>
+                <Linkify text={a.body} className="text-slate-700 text-right" />
                 {a.attachment && (
                   <AttachmentView url={a.attachment} type={a.attachType}
                     canDelete={me?.id === a.userId} onDelete={() => deleteAnswerAttachment(a.id)} />
@@ -305,7 +306,7 @@ export default function QuestionPage() {
                             {index + 1}.{ri + 1}
                           </span>
                           <div className="flex-1">
-                            <p className="text-slate-700 whitespace-pre-wrap text-right text-sm">{r.body}</p>
+                            <Linkify text={r.body} className="text-slate-700 text-right text-sm" />
                             {r.attachment && (
                               <AttachmentView url={r.attachment} type={r.attachType}
                                 canDelete={me?.id === r.userId} onDelete={() => deleteAnswerAttachment(r.id)} />
