@@ -4,7 +4,10 @@ import { getSession } from "@/lib/auth";
 
 export async function GET() {
   const posts = await prisma.wantedPost.findMany({
-    include: { user: { select: { name: true, email: true, whatsapp: true } } },
+    include: {
+      user: { select: { name: true, email: true, whatsapp: true } },
+      _count: { select: { responses: true } },
+    },
     orderBy: { createdAt: "desc" },
   });
   return NextResponse.json(posts);

@@ -20,6 +20,7 @@ model User {
   favorites    Favorite[]
   questions    Question[]
   answers      Answer[]
+  wantedResponses WantedResponse[]
 }
 
 model Question {
@@ -61,7 +62,7 @@ model Favorite {
 }
 
 model WantedPost {
-  id          String   @id @default(cuid())
+  id          String           @id @default(cuid())
   title       String
   description String
   category    String
@@ -69,9 +70,22 @@ model WantedPost {
   location    String?
   phone       String?
   email       String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime         @default(now())
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
+  user        User             @relation(fields: [userId], references: [id])
+  responses   WantedResponse[]
+}
+
+model WantedResponse {
+  id           String     @id @default(cuid())
+  body         String
+  attachment   String?
+  attachType   String?
+  createdAt    DateTime   @default(now())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  wantedPostId String
+  wantedPost   WantedPost @relation(fields: [wantedPostId], references: [id], onDelete: Cascade)
 }
 
 model Listing {

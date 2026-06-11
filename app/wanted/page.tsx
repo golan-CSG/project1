@@ -34,6 +34,7 @@ interface WantedPost {
   createdAt: string;
   userId: string;
   user: { name: string; email: string; whatsapp?: string };
+  _count?: { responses: number };
 }
 
 export default function WantedPage() {
@@ -148,7 +149,9 @@ export default function WantedPage() {
             <div key={post.id} className="bg-white rounded-xl border border-slate-200 p-5">
               <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="text-right flex-1">
-                  <p className="font-semibold text-slate-800 text-lg">{post.title}</p>
+                  <Link href={`/wanted/${post.id}`}>
+                    <p className="font-semibold text-slate-800 text-lg hover:text-green-600">{post.title}</p>
+                  </Link>
                   <p className="text-slate-500 text-sm mt-1">{post.description}</p>
                 </div>
                 <div className="flex flex-col items-end gap-1 flex-shrink-0">
@@ -173,6 +176,10 @@ export default function WantedPage() {
                     className="flex items-center gap-1 text-slate-600 font-medium hover:underline">
                     ✉️ אימייל
                   </a>
+                  <Link href={`/wanted/${post.id}`}
+                    className="flex items-center gap-1 text-slate-600 font-medium hover:underline">
+                    💬 {post._count?.responses || 0} תגובות
+                  </Link>
                   {me?.id === post.userId && (
                     <>
                       <button onClick={() => openEdit(post)}
