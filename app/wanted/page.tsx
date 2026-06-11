@@ -119,11 +119,11 @@ export default function WantedPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800">🕯️ מחפש בנרות</h1>
-          <p className="text-slate-500 mt-1">מחפשים חלק מסוים? פרסמו כאן ומוכרים יצרו איתכם קשר</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">🕯️ מחפש בנרות</h1>
+          <p className="text-slate-500 mt-1 text-sm sm:text-base">מחפשים חלק מסוים? פרסמו כאן ומוכרים יצרו איתכם קשר</p>
         </div>
         <Link href="/wanted/new"
-          className="bg-green-600 text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-green-700 text-sm">
+          className="bg-green-600 text-white px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-lg font-semibold hover:bg-green-700 text-xs sm:text-sm flex-shrink-0">
           + פרסם בקשה
         </Link>
       </div>

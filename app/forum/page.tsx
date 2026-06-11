@@ -34,11 +34,11 @@ export default function ForumPage() {
     <div className="max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <Link href="/forum/new"
-          className="flex items-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-green-700 text-sm">
-          <Plus size={16} /> שאל שאלה
+          className="flex items-center gap-1 sm:gap-2 bg-green-600 text-white px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-lg font-semibold hover:bg-green-700 text-xs sm:text-sm flex-shrink-0">
+          <Plus size={14} /> שאל שאלה
         </Link>
         <div className="text-right">
-          <h1 className="text-3xl font-bold text-slate-800">💬 שאל את המומחה</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">💬 שאל את המומחה</h1>
           <p className="text-slate-500 mt-1">שאלות ותשובות על תחזוקה, תיקונים והתאמות</p>
         </div>
       </div>
