@@ -26,10 +26,11 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   if (whatsapp !== undefined) data.whatsapp = whatsapp;
   if (isAdmin !== undefined) data.isAdmin = isAdmin;
   if (password) {
-    if (password.length < 4) {
+    const pw = password.trim();
+    if (pw.length < 4) {
       return NextResponse.json({ error: "הסיסמה חייבת להכיל לפחות 4 תווים" }, { status: 400 });
     }
-    data.password = await bcrypt.hash(password, 10);
+    data.password = await bcrypt.hash(pw, 10);
   }
 
   try {

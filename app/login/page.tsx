@@ -39,7 +39,8 @@ export default function LoginPage() {
         <form onSubmit={submit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">אימייל</label>
-            <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
+            <input type="email" required autoCapitalize="none" autoCorrect="off" spellCheck={false}
+              value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
               className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
           </div>
           <div>

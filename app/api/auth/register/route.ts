@@ -3,7 +3,11 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
-  const { name, email, password, whatsapp } = await req.json();
+  const body = await req.json();
+  const name = (body.name || "").trim();
+  const email = (body.email || "").trim().toLowerCase();
+  const password = (body.password || "").trim();
+  const whatsapp = body.whatsapp;
 
   if (!name || !email || !password) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
