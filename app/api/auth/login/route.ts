@@ -7,7 +7,9 @@ export async function POST(req: NextRequest) {
   const email = (body.email || "").trim().toLowerCase();
   const password = (body.password || "").trim();
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findFirst({
+    where: { email: { equals: email, mode: "insensitive" } },
+  });
   if (!user) {
     return NextResponse.json({ error: `אימייל לא נמצא: "${email}"` }, { status: 401 });
   }
