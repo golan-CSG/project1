@@ -45,7 +45,7 @@ export default function EditListingPage() {
       fetch(`/api/listings/${id}`).then((r) => r.json()),
       fetch("/api/me").then((r) => r.json()),
     ]).then(([listing, me]) => {
-      if (!me || listing.userId !== me.id) { router.push("/"); return; }
+      if (!me || (listing.userId !== me.id && !me.isAdmin)) { router.push("/"); return; }
       setForm({
         title: listing.title,
         description: listing.description,
