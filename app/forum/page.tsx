@@ -38,7 +38,7 @@ export default function ForumPage() {
           <Plus size={14} /> שאל שאלה
         </Link>
         <div className="text-right">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">💬 שאל את המומחה</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">💬 שאל חבר</h1>
           <p className="text-slate-500 mt-1">שאלות ותשובות על תחזוקה, תיקונים והתאמות</p>
         </div>
       </div>

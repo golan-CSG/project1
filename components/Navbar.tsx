@@ -25,7 +25,7 @@ export default function Navbar() {
   const navLinks = (
     <>
       <Link href="/" className="hover:text-green-100 text-sm">🛒 כיכר השוק</Link>
-      <Link href="/forum" className="hover:text-green-100 text-sm">💬 שאל את המומחה</Link>
+      <Link href="/forum" className="hover:text-green-100 text-sm">💬 שאל חבר</Link>
       <Link href="/search" className="hover:text-green-100 text-sm">🔍 חיפוש מתקדם</Link>
       <Link href="/favorites" className="hover:text-green-100 text-sm">⭐ מועדפים</Link>
       <Link href="/my-listings" className="hover:text-green-100 text-sm">📦 המודעות שלי</Link>
@@ -102,7 +102,7 @@ export default function Navbar() {
               <Link href="/admin" className="py-2.5 border-b border-green-600 font-bold text-yellow-300">🛡️ ניהול</Link>
             )}
             <Link href="/" className="py-2.5 border-b border-green-600 hover:text-green-100">🛒 כיכר השוק</Link>
-            <Link href="/forum" className="py-2.5 border-b border-green-600 hover:text-green-100">💬 שאל את המומחה</Link>
+            <Link href="/forum" className="py-2.5 border-b border-green-600 hover:text-green-100">💬 שאל חבר</Link>
             <Link href="/search" className="py-2.5 border-b border-green-600 hover:text-green-100">🔍 חיפוש מתקדם</Link>
             <Link href="/favorites" className="py-2.5 border-b border-green-600 hover:text-green-100">⭐ מועדפים</Link>
             <Link href="/my-listings" className="py-2.5 border-b border-green-600 hover:text-green-100">📦 המודעות שלי</Link>
