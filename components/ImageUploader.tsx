@@ -32,22 +32,25 @@ export default function ImageUploader({ images, onChange, uploading, onUploading
     onUploading(true);
     onError("");
 
-    const uploaded: string[] = [];
-    let failures = 0;
-    for (let i = 0; i < toUpload.length; i++) {
-      try {
-        const file = await processImage(toUpload[i]);
-        // unique pathname per file so names never collide
-        const pathName = `${Date.now()}-${i}-${file.name}`;
-        const blob = await upload(pathName, file, {
-          access: "public",
-          handleUploadUrl: "/api/upload",
-        });
-        uploaded.push(blob.url);
-      } catch {
-        failures++;
-      }
-    }
+    // Process + upload all selected files in parallel for speed
+    const results = await Promise.all(
+      toUpload.map(async (raw, i) => {
+        try {
+          const file = await processImage(raw);
+          const pathName = `${Date.now()}-${i}-${file.name}`;
+          const blob = await upload(pathName, file, {
+            access: "public",
+            handleUploadUrl: "/api/upload",
+          });
+          return blob.url;
+        } catch {
+          return null;
+        }
+      })
+    );
+
+    const uploaded = results.filter((u): u is string => !!u);
+    const failures = results.length - uploaded.length;
 
     if (uploaded.length) onChange([...images, ...uploaded]);
     if (failures > 0) onError(`${failures} תמונות לא הועלו, נסה שוב`);
