@@ -19,6 +19,7 @@ const CATEGORIES = [
   { value: "fork", label: "מזלג" },
   { value: "roadbike", label: "אופני כביש" },
   { value: "computers", label: "מחשבונים / שעונים" },
+  { value: "helmets", label: "קסדות" },
   { value: "other", label: "אחר" },
 ];
 

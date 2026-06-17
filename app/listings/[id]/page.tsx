@@ -7,7 +7,7 @@ import { ArrowRight, Mail, MessageCircle, Trash2, Pencil, ChevronLeft, ChevronRi
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", bike: "אופני הרים", roadbike: "אופני כביש", brakes: "בלמים", drivetrain: "הינע",
   handlebars: "כידון", saddle: "אוכף", frame: "שלדה",
-  forks: "סטם", fork: "מזלג", pedals: "פדלים", tires: "צמיגים", computers: "מחשבונים / שעונים", other: "אחר",
+  forks: "סטם", fork: "מזלג", pedals: "פדלים", tires: "צמיגים", computers: "מחשבונים / שעונים", helmets: "קסדות", other: "אחר",
 };
 
 const CONDITIONS: Record<string, string> = {
