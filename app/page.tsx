@@ -112,24 +112,24 @@ export default function Home() {
         />
       </div>
 
-      <div className="flex gap-3 flex-wrap mb-8">
+      <div className="flex gap-2 overflow-x-auto pb-2 mb-8">
         {CATEGORIES.map((cat) => (
           <button
             key={cat.value}
             onClick={() => setCategory(cat.value)}
-            className={`flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all border ${
+            className={`flex flex-col items-center gap-1 px-2 py-2 rounded-xl text-[11px] font-medium transition-all border flex-shrink-0 w-20 ${
               category === cat.value
-                ? "bg-green-600 text-white border-green-600 shadow-md scale-105"
+                ? "bg-green-600 text-white border-green-600 shadow-md"
                 : "bg-white border-slate-200 text-slate-600 hover:border-green-400 hover:shadow-sm"
             }`}
           >
             {cat.img ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={cat.img} alt={cat.label} className="w-10 h-10 object-contain" />
+              <img src={cat.img} alt={cat.label} className="w-9 h-9 object-contain" />
             ) : (
               <span className="text-2xl">🛒</span>
             )}
-            <span>{cat.label}</span>
+            <span className="text-center leading-tight">{cat.label}</span>
           </button>
         ))}
       </div>
