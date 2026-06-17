@@ -109,9 +109,11 @@ export default function ListingPage() {
 
         {/* Image gallery */}
         {photos.length > 0 ? (
-          <div className="relative bg-slate-100">
+          <div className="relative bg-slate-100 flex items-center justify-center min-h-[12rem]">
+            <span className="absolute text-6xl text-slate-300">🚲</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={photos[photoIndex]} alt={listing.title} className="w-full max-h-80 object-contain" />
+            <img src={photos[photoIndex]} alt={listing.title} className="relative w-full max-h-80 object-contain"
+              onError={(e) => { (e.target as HTMLImageElement).style.visibility = "hidden"; }} />
 
             {photos.length > 1 && (
               <>
@@ -139,7 +141,8 @@ export default function ListingPage() {
                   <button key={i} onClick={() => setPhotoIndex(i)}
                     className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${i === photoIndex ? "border-green-500" : "border-transparent"}`}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={url} alt="" className="w-full h-full object-cover" />
+                    <img src={url} alt="" className="w-full h-full object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).src = "/categories/other.svg"; }} />
                   </button>
                 ))}
               </div>
