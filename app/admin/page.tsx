@@ -20,7 +20,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<AdminUser | null>(null);
-  const [editForm, setEditForm] = useState({ name: "", email: "", whatsapp: "" });
+  const [editForm, setEditForm] = useState({ name: "", email: "", whatsapp: "", password: "" });
   const [saving, setSaving] = useState(false);
   const [editError, setEditError] = useState("");
   const router = useRouter();
@@ -53,7 +53,7 @@ export default function AdminPage() {
 
   function openEdit(u: AdminUser) {
     setEditing(u);
-    setEditForm({ name: u.name, email: u.email, whatsapp: u.whatsapp || "" });
+    setEditForm({ name: u.name, email: u.email, whatsapp: u.whatsapp || "", password: "" });
     setEditError("");
   }
 
@@ -213,6 +213,14 @@ export default function AdminPage() {
                   onChange={(e) => setEditForm({ ...editForm, whatsapp: e.target.value })}
                   placeholder="05X-XXXXXXX"
                   className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">איפוס סיסמה <span className="text-slate-400">(השאר ריק כדי לא לשנות)</span></label>
+                <input type="text" value={editForm.password}
+                  onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
+                  placeholder="סיסמה חדשה למשתמש"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right" />
+                <p className="text-xs text-slate-400 mt-1">מסור את הסיסמה החדשה למשתמש</p>
               </div>
               {editError && <p className="text-red-500 text-sm text-right">{editError}</p>}
               <div className="flex gap-3 pt-2">
