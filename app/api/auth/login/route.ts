@@ -11,12 +11,12 @@ export async function POST(req: NextRequest) {
     where: { email: { equals: email, mode: "insensitive" } },
   });
   if (!user) {
-    return NextResponse.json({ error: `אימייל לא נמצא: "${email}"` }, { status: 401 });
+    return NextResponse.json({ error: "אימייל או סיסמה שגויים" }, { status: 401 });
   }
 
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) {
-    return NextResponse.json({ error: `סיסמה שגויה (אורך שהוקלד: ${password.length})` }, { status: 401 });
+    return NextResponse.json({ error: "אימייל או סיסמה שגויים" }, { status: 401 });
   }
 
   const response = NextResponse.json({ success: true });
