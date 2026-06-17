@@ -72,7 +72,8 @@ export default function ImageUploader({ images, onChange, uploading, onUploading
         {images.map((url, i) => (
           <div key={i} className="relative w-28 h-28 rounded-xl overflow-hidden border border-slate-200 group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={url} alt={`תמונה ${i + 1}`} className="w-full h-full object-cover" />
+            <img src={url} alt={`תמונה ${i + 1}`} className="w-full h-full object-cover"
+              onError={(e) => { (e.target as HTMLImageElement).src = "/categories/other.svg"; }} />
             {i === 0 && (
               <span className="absolute bottom-0 right-0 left-0 text-center text-[10px] bg-black/50 text-white py-0.5">
                 ראשית
