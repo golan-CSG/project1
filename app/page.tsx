@@ -19,6 +19,7 @@ const CATEGORIES = [
   { value: "roadbike", label: "אופני כביש", img: "/categories/roadbike.svg" },
   { value: "computers", label: "מחשבונים / שעונים", img: "/categories/computers.svg" },
   { value: "helmets", label: "קסדות", img: "/categories/helmets.svg" },
+  { value: "powermeter", label: "מד וואטים", img: "/categories/powermeter.svg" },
   { value: "other", label: "אחר", img: "/categories/other.svg" },
 ];
 

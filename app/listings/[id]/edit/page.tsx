@@ -18,6 +18,7 @@ const CATEGORIES = [
   { value: "roadbike", label: "אופני כביש" },
   { value: "computers", label: "מחשבונים / שעונים" },
   { value: "helmets", label: "קסדות" },
+  { value: "powermeter", label: "מד וואטים" },
   { value: "other", label: "אחר" },
 ];
 

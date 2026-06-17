@@ -23,6 +23,7 @@ const CATEGORIES = [
   { value: "bike", label: "אופני הרים" },
   { value: "computers", label: "מחשבונים / שעונים" },
   { value: "helmets", label: "קסדות" },
+  { value: "powermeter", label: "מד וואטים" },
   { value: "other", label: "אחר" },
 ];
 

@@ -10,7 +10,7 @@ import { waLink } from "@/lib/waLink";
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע", handlebars: "כידון",
   saddle: "אוכף", frame: "שלדה", forks: "סטם", fork: "מזלג", pedals: "פדלים",
-  tires: "צמיגים", roadbike: "אופני כביש", bike: "אופני הרים", computers: "מחשבונים / שעונים", helmets: "קסדות", other: "אחר",
+  tires: "צמיגים", roadbike: "אופני כביש", bike: "אופני הרים", computers: "מחשבונים / שעונים", helmets: "קסדות", powermeter: "מד וואטים", other: "אחר",
 };
 
 interface Attachment { url: string; name: string; type: string; }

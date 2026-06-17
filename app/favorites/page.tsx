@@ -7,7 +7,7 @@ import { Star } from "lucide-react";
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", bike: "אופני הרים", roadbike: "אופני כביש", brakes: "בלמים", drivetrain: "הינע",
   handlebars: "כידון", saddle: "אוכף", frame: "שלדה",
-  forks: "סטם", fork: "מזלג", pedals: "פדלים", tires: "צמיגים", computers: "מחשבונים / שעונים", helmets: "קסדות", other: "אחר",
+  forks: "סטם", fork: "מזלג", pedals: "פדלים", tires: "צמיגים", computers: "מחשבונים / שעונים", helmets: "קסדות", powermeter: "מד וואטים", other: "אחר",
 };
 
 const CONDITIONS: Record<string, string> = {
