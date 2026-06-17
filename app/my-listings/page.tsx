@@ -7,7 +7,7 @@ import { Star, Plus, Pencil, Trash2, TrendingUp, Package, Wallet } from "lucide-
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", bike: "אופני הרים", roadbike: "אופני כביש", brakes: "בלמים", drivetrain: "הינע",
   handlebars: "כידון", saddle: "אוכף", frame: "שלדה",
-  forks: "סטם", fork: "מזלג", pedals: "פדלים", tires: "צמיגים", other: "אחר",
+  forks: "סטם", fork: "מזלג", pedals: "פדלים", tires: "צמיגים", computers: "מחשבונים / שעונים", other: "אחר",
 };
 
 const CONDITIONS: Record<string, string> = {

@@ -17,6 +17,7 @@ const CATEGORIES = [
   { value: "tires", label: "צמיגים" },
   { value: "roadbike", label: "אופני כביש" },
   { value: "bike", label: "אופני הרים" },
+  { value: "computers", label: "מחשבונים / שעונים" },
   { value: "other", label: "אחר" },
 ];
 
@@ -113,7 +114,7 @@ export default function SearchPage() {
   const CATEGORIES_MAP: Record<string, string> = {
     wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע", handlebars: "כידון",
     saddle: "אוכף", frame: "שלדה", forks: "סטם", fork: "מזלג", pedals: "פדלים",
-    tires: "צמיגים", roadbike: "אופני כביש", bike: "אופני הרים", other: "אחר",
+    tires: "צמיגים", roadbike: "אופני כביש", bike: "אופני הרים", computers: "מחשבונים / שעונים", other: "אחר",
   };
 
   const CONDITIONS_MAP: Record<string, string> = {

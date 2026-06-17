@@ -9,7 +9,7 @@ import Linkify from "@/components/Linkify";
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע", handlebars: "כידון",
   saddle: "אוכף", frame: "שלדה", forks: "סטם", fork: "מזלג", pedals: "פדלים",
-  tires: "צמיגים", roadbike: "אופני כביש", bike: "אופני הרים", other: "אחר",
+  tires: "צמיגים", roadbike: "אופני כביש", bike: "אופני הרים", computers: "מחשבונים / שעונים", other: "אחר",
 };
 
 interface Attachment { url: string; name: string; type: string; }

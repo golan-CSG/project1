@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Watch strap -->
+  <rect x="38" y="8" width="24" height="20" rx="4" fill="#374151"/>
+  <rect x="38" y="72" width="24" height="20" rx="4" fill="#374151"/>
+  <!-- Watch/computer body -->
+  <rect x="24" y="26" width="52" height="48" rx="10" fill="#1e293b"/>
+  <!-- Screen -->
+  <rect x="31" y="33" width="38" height="34" rx="5" fill="#22d3ee"/>
+  <!-- Screen data lines -->
+  <rect x="36" y="38" width="20" height="5" rx="2" fill="#0e7490"/>
+  <rect x="36" y="47" width="28" height="4" rx="2" fill="#155e75"/>
+  <rect x="36" y="55" width="22" height="4" rx="2" fill="#155e75"/>
+  <!-- Side button -->
+  <rect x="76" y="42" width="4" height="10" rx="2" fill="#64748b"/>
+</svg>

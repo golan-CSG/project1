@@ -16,6 +16,7 @@ const CATEGORIES = [
   { value: "tires", label: "צמיגים" },
   { value: "roadbike", label: "אופני כביש" },
   { value: "bike", label: "אופני הרים" },
+  { value: "computers", label: "מחשבונים / שעונים" },
   { value: "other", label: "אחר" },
 ];
 
