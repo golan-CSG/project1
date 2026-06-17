@@ -187,7 +187,7 @@ export default function AdminPage() {
       {/* Edit modal */}
       {editing && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setEditing(null)}>
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <button onClick={() => setEditing(null)} className="text-slate-400 hover:text-slate-600">
                 <X size={20} />
