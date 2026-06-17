@@ -22,25 +22,35 @@ export default function ImageUploader({ images, onChange, uploading, onUploading
     if (!files.length) return;
 
     const remaining = MAX_IMAGES - images.length;
+    if (remaining <= 0) {
+      onError(`ניתן להעלות עד ${MAX_IMAGES} תמונות`);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
     const toUpload = files.slice(0, remaining);
 
     onUploading(true);
-    const uploaded: string[] = [];
+    onError("");
 
-    for (const rawFile of toUpload) {
+    const uploaded: string[] = [];
+    let failures = 0;
+    for (let i = 0; i < toUpload.length; i++) {
       try {
-        const file = await processImage(rawFile);
-        const blob = await upload(file.name, file, {
+        const file = await processImage(toUpload[i]);
+        // unique pathname per file so names never collide
+        const pathName = `${Date.now()}-${i}-${file.name}`;
+        const blob = await upload(pathName, file, {
           access: "public",
           handleUploadUrl: "/api/upload",
         });
         uploaded.push(blob.url);
-      } catch (err) {
-        onError(err instanceof Error ? err.message : "שגיאה בהעלאת תמונה");
+      } catch {
+        failures++;
       }
     }
 
-    onChange([...images, ...uploaded]);
+    if (uploaded.length) onChange([...images, ...uploaded]);
+    if (failures > 0) onError(`${failures} תמונות לא הועלו, נסה שוב`);
     onUploading(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
