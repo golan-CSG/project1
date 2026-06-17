@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Mail, MessageCircle, Trash2, Pencil, ChevronLeft, ChevronRight, Star, Tag } from "lucide-react";
+import { waLink } from "@/lib/waLink";
 
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", bike: "אופני הרים", roadbike: "אופני כביש", brakes: "בלמים", drivetrain: "הינע",
@@ -180,7 +181,7 @@ export default function ListingPage() {
               <div className="flex justify-between">
                 <span className="text-slate-500">טלפון נייד</span>
                 {listing.phone
-                  ? <a href={`https://wa.me/${listing.phone.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="font-medium text-green-600 hover:underline">📱 {listing.phone}</a>
+                  ? <a href={waLink(listing.phone)} target="_blank" rel="noopener noreferrer" className="font-medium text-green-600 hover:underline">📱 {listing.phone}</a>
                   : <span className="text-slate-400">לא צוין</span>
                 }
               </div>
@@ -193,7 +194,7 @@ export default function ListingPage() {
               {listing.user.whatsapp && (
                 <div className="flex justify-between">
                   <span className="text-slate-500">וואטסאפ</span>
-                  <a href={`https://wa.me/${listing.user.whatsapp.replace(/\D/g, "")}`}
+                  <a href={waLink(listing.user.whatsapp)}
                     target="_blank" rel="noopener noreferrer"
                     className="font-medium text-green-600 hover:underline">{listing.user.whatsapp}</a>
                 </div>
@@ -214,7 +215,7 @@ export default function ListingPage() {
                 </button>
               )}
               {me && !isOwner && (listing.phone || listing.user.whatsapp) && (
-                <a href={`https://wa.me/${(listing.phone || listing.user.whatsapp || "").replace(/\D/g, "")}`}
+                <a href={waLink(listing.phone || listing.user.whatsapp)}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-green-500 text-white px-4 py-2.5 rounded-lg hover:bg-green-600 text-sm font-medium">
                   <MessageCircle size={16} /> וואטסאפ

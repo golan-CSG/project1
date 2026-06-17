@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { User, Mail, Phone, Calendar, Pencil, Check, X, Camera } from "lucide-react";
 import { upload } from "@vercel/blob/client";
 import { processImage } from "@/lib/processImage";
+import { waLink } from "@/lib/waLink";
 
 interface Profile {
   id: string;
@@ -149,7 +150,7 @@ export default function ProfilePage() {
                 </div>
               </div>
               <div className="flex items-center justify-between py-3 border-b border-slate-100">
-                <a href={`https://wa.me/${(profile.whatsapp || "").replace(/\D/g, "")}`}
+                <a href={waLink(profile.whatsapp)}
                   target="_blank" rel="noopener noreferrer"
                   className="text-green-600 hover:underline">
                   {profile.whatsapp || "לא הוזן"}

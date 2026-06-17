@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Search, Pencil, Trash2, X } from "lucide-react";
 import AttachmentUploader from "@/components/AttachmentUploader";
+import { waLink } from "@/lib/waLink";
 
 interface Attachment { url: string; name: string; type: string; }
 
@@ -180,7 +181,7 @@ export default function WantedPage() {
               <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 text-xs text-slate-400">
                 <div className="flex gap-3 items-center">
                   {(post.phone || post.user.whatsapp) && (
-                    <a href={`https://wa.me/${(post.phone || post.user.whatsapp || "").replace(/\D/g, "")}`}
+                    <a href={waLink(post.phone || post.user.whatsapp)}
                       target="_blank" rel="noopener noreferrer"
                       className="flex items-center gap-1 text-green-600 font-medium hover:underline">
                       💬 וואטסאפ

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, User, FileText, Download, Trash2 } from "lucide-react";
 import AttachmentUploader from "@/components/AttachmentUploader";
 import Linkify from "@/components/Linkify";
+import { waLink } from "@/lib/waLink";
 
 const CATEGORIES: Record<string, string> = {
   wheels: "גלגלים", brakes: "בלמים", drivetrain: "הינע", handlebars: "כידון",
@@ -141,7 +142,7 @@ export default function WantedPostPage() {
         </div>
         <div className="flex gap-3 mt-4 pt-4 border-t border-slate-100">
           {(post.phone || post.user.whatsapp) && (
-            <a href={`https://wa.me/${(post.phone || post.user.whatsapp || "").replace(/\D/g, "")}`}
+            <a href={waLink(post.phone || post.user.whatsapp)}
               target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 text-sm font-medium">
               💬 וואטסאפ
