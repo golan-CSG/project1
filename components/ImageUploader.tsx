@@ -79,8 +79,8 @@ export default function ImageUploader({ images, onChange, uploading, onUploading
               </span>
             )}
             <button type="button" onClick={() => removeImage(i)}
-              className="absolute top-1 left-1 bg-white text-slate-600 rounded-full p-0.5 shadow opacity-0 group-hover:opacity-100 transition-opacity hover:text-red-500">
-              <X size={14} />
+              className="absolute top-1 left-1 bg-white text-red-500 rounded-full p-1 shadow hover:bg-red-50">
+              <X size={16} />
             </button>
           </div>
         ))}
