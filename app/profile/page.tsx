@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { User, Mail, Phone, Calendar, Pencil, Check, X, Camera } from "lucide-react";
 import { upload } from "@vercel/blob/client";
+import { processImage } from "@/lib/processImage";
 
 interface Profile {
   id: string;
@@ -40,10 +41,11 @@ export default function ProfilePage() {
   }, [router]);
 
   async function handleAvatarUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const rawFile = e.target.files?.[0];
+    if (!rawFile) return;
     setUploading(true);
     try {
+      const file = await processImage(rawFile);
       const blob = await upload(file.name, file, {
         access: "public",
         handleUploadUrl: "/api/upload",

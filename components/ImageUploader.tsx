@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { ImagePlus, X } from "lucide-react";
 import { upload } from "@vercel/blob/client";
+import { processImage } from "@/lib/processImage";
 
 const MAX_IMAGES = 3;
 
@@ -26,8 +27,9 @@ export default function ImageUploader({ images, onChange, uploading, onUploading
     onUploading(true);
     const uploaded: string[] = [];
 
-    for (const file of toUpload) {
+    for (const rawFile of toUpload) {
       try {
+        const file = await processImage(rawFile);
         const blob = await upload(file.name, file, {
           access: "public",
           handleUploadUrl: "/api/upload",

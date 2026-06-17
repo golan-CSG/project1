@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { Paperclip, X, FileText } from "lucide-react";
 import { upload } from "@vercel/blob/client";
+import { processImage } from "@/lib/processImage";
 
 function isImageFile(name: string) {
   const ext = name.split(".").pop()?.toLowerCase() || "";
@@ -26,11 +27,12 @@ export default function AttachmentUploader({ attachment, onChange, uploading, on
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const rawFile = e.target.files?.[0];
+    if (!rawFile) return;
 
     onUploading(true);
     try {
+      const file = await processImage(rawFile);
       const blob = await upload(file.name, file, {
         access: "public",
         handleUploadUrl: "/api/upload",
