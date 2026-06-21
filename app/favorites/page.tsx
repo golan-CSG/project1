@@ -66,7 +66,7 @@ export default function FavoritesPage() {
                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
                   {firstImage ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={firstImage} alt={listing.title} className="w-full h-44 object-cover" />
+                    <img src={firstImage} alt={listing.title} loading="lazy" decoding="async" className="w-full h-44 object-cover" />
                   ) : (
                     <div className="w-full h-44 bg-slate-100 flex items-center justify-center text-5xl">🚲</div>
                   )}

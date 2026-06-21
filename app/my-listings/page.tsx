@@ -108,7 +108,7 @@ export default function MyListingsPage() {
                   <Link href={`/listings/${listing.id}`} className="flex-shrink-0 relative">
                     {firstImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={firstImage} alt={listing.title} className="w-20 h-20 object-cover rounded-lg" />
+                      <img src={firstImage} alt={listing.title} loading="lazy" decoding="async" className="w-20 h-20 object-cover rounded-lg" />
                     ) : (
                       <div className="w-20 h-20 bg-slate-100 rounded-lg flex items-center justify-center text-3xl">🚲</div>
                     )}

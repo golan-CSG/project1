@@ -153,7 +153,7 @@ export default function Home() {
                 <div className="relative">
                   {listing.imageUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={listing.imageUrl} alt={listing.title} className="w-full h-44 object-cover" />
+                    <img src={listing.imageUrl} alt={listing.title} loading="lazy" decoding="async" className="w-full h-44 object-cover" />
                   ) : (
                     <div className="w-full h-44 bg-slate-100 flex items-center justify-center text-5xl">🚲</div>
                   )}
